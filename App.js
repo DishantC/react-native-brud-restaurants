@@ -1,16 +1,16 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import store from './src/redux/store';
-import {Provider as StateProvider} from 'react-redux';
-import Navigation from './src/Navigation/Navigation'
-const App = () => {
-  return (
-    <StateProvider store={store}>
-      <Navigation />
-  </StateProvider>
+import React,{useEffect,useState} from 'react'
+import { StyleSheet, Text, View,Platform } from 'react-native'
+import Navigation from './src/navigation/navigation'
 
+const App = () => {
+
+
+
+  return (
+    <Navigation />
   )
 }
 
-export default App;
+export default App
 
+const styles = StyleSheet.create({})

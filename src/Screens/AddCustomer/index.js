@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,304 +13,304 @@ import {
   Modal,
   Keyboard,
   Alert,
-} from "react-native";
-import styles from "./styles";
-import { PX } from "../../Components/Pixel/index";
-import { hasNotch } from "react-native-device-info";
-import logo from "../../Assets/logo1.png";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import firstStep from "../../Assets/shop-outline.png";
-import uploadBanner from "../../Assets/uploadbanner.png";
-import open from "../../Assets/open.png";
-import CountryPicker, { DARK_THEME } from "react-native-country-picker-modal";
-import backArrow from "../../Assets/backArrow.png";
-import calendar from "../../Assets/calendar.png";
+} from 'react-native';
+import styles from './styles';
+import {PX} from '../../Components/Pixel/index';
+import {hasNotch} from 'react-native-device-info';
+import logo from '../../Assets/logo1.png';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import firstStep from '../../Assets/shop-outline.png';
+import uploadBanner from '../../Assets/uploadbanner.png';
+import open from '../../Assets/open.png';
+import CountryPicker, {DARK_THEME} from 'react-native-country-picker-modal';
+import backArrow from '../../Assets/backArrow.png';
+import calendar from '../../Assets/calendar.png';
 import {
   CafeProfileApi,
   SetupCafeApi,
   UploadImage,
   TimeData,
-} from "../../services/Api";
-import { Loader } from "../../Components/Loader";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import GetLocation from "react-native-get-location";
-import MapView, { Marker } from "react-native-maps";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
-import ImagePopup from "../../Components/ImagePopup";
-import TimePopup from "../../Components/TimePopup";
-import MapboxGL from "@react-native-mapbox-gl/maps";
-import ImagePicker from "react-native-image-crop-picker";
-import map from "../../Assets/map.png";
-import { Fonts } from "../../utils";
-import downArrow from "../../Assets/downArrow.png";
-import search from "../../Assets/search.png";
-import addressMap from "../../Assets/addressMap.png";
+} from '../../services/Api';
+import {Loader} from '../../Components/Loader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import GetLocation from 'react-native-get-location';
+import MapView, {Marker} from 'react-native-maps';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import ImagePopup from '../../Components/ImagePopup';
+import TimePopup from '../../Components/TimePopup';
+import MapboxGL from '@react-native-mapbox-gl/maps';
+import ImagePicker from 'react-native-image-crop-picker';
+import map from '../../Assets/map.png';
+import {Fonts} from '../../utils';
+import downArrow from '../../Assets/downArrow.png';
+import search from '../../Assets/search.png';
+import addressMap from '../../Assets/addressMap.png';
 
 const Array1 = [
   {
-    name: "Sunday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Sunday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Monday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Monday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Tuesday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Tuesday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Wednesday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Wednesday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Thursday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Thursday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Friday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Friday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Saturday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Saturday',
+    time: '',
+    start: '',
+    end: '',
   },
 ];
 
 let data = [
   {
-    label: "Alabama",
-    value: "Alabama",
+    label: 'Alabama',
+    value: 'Alabama',
   },
   {
-    label: "Alaska",
-    value: "Alaska",
+    label: 'Alaska',
+    value: 'Alaska',
   },
   {
-    label: "Arizona",
-    value: "Arizona",
+    label: 'Arizona',
+    value: 'Arizona',
   },
   {
-    label: "Arkansas",
-    value: "Arkansas",
+    label: 'Arkansas',
+    value: 'Arkansas',
   },
   {
-    label: "California",
-    value: "California",
+    label: 'California',
+    value: 'California',
   },
   {
-    label: "Colorado",
-    value: "Colorado",
+    label: 'Colorado',
+    value: 'Colorado',
   },
   {
-    label: "Connecticut",
-    value: "Connecticut",
+    label: 'Connecticut',
+    value: 'Connecticut',
   },
   {
-    label: "Delaware",
-    value: "Delaware",
+    label: 'Delaware',
+    value: 'Delaware',
   },
   {
-    label: "Florida",
-    value: "Florida",
+    label: 'Florida',
+    value: 'Florida',
   },
   {
-    label: "Georgia",
-    value: "Georgia",
+    label: 'Georgia',
+    value: 'Georgia',
   },
   {
-    label: "Hawaii",
-    value: "Hawaii",
+    label: 'Hawaii',
+    value: 'Hawaii',
   },
   {
-    label: "Idaho",
-    value: "Idaho",
+    label: 'Idaho',
+    value: 'Idaho',
   },
   {
-    label: "Illinois",
-    value: "Illinois",
+    label: 'Illinois',
+    value: 'Illinois',
   },
   {
-    label: "Indiana",
-    value: "Indiana",
+    label: 'Indiana',
+    value: 'Indiana',
   },
   {
-    label: "Iowa",
-    value: "Iowa",
+    label: 'Iowa',
+    value: 'Iowa',
   },
   {
-    label: "Kansas",
-    value: "Kansas",
+    label: 'Kansas',
+    value: 'Kansas',
   },
   {
-    label: "Kentucky[D]",
-    value: "Kentucky[D]",
+    label: 'Kentucky[D]',
+    value: 'Kentucky[D]',
   },
   {
-    label: "Louisiana",
-    value: "Louisiana",
+    label: 'Louisiana',
+    value: 'Louisiana',
   },
   {
-    label: "Maine",
-    value: "Maine",
+    label: 'Maine',
+    value: 'Maine',
   },
   {
-    label: "Maryland",
-    value: "Maryland",
+    label: 'Maryland',
+    value: 'Maryland',
   },
   {
-    label: "Massachusetts",
-    value: "Massachusetts[D]",
+    label: 'Massachusetts',
+    value: 'Massachusetts[D]',
   },
   {
-    label: "Michigan",
-    value: "Michigan",
+    label: 'Michigan',
+    value: 'Michigan',
   },
   {
-    label: "Minnesota",
-    value: "Minnesota",
+    label: 'Minnesota',
+    value: 'Minnesota',
   },
   {
-    label: "Mississippi",
-    value: "Mississippi",
+    label: 'Mississippi',
+    value: 'Mississippi',
   },
   {
-    label: "Missouri",
-    value: "Missouri",
+    label: 'Missouri',
+    value: 'Missouri',
   },
   {
-    label: "Montana",
-    value: "Montana",
+    label: 'Montana',
+    value: 'Montana',
   },
   {
-    label: "Nebraska",
-    value: "Nebraska",
+    label: 'Nebraska',
+    value: 'Nebraska',
   },
   {
-    label: "Nevada",
-    value: "Nevada",
+    label: 'Nevada',
+    value: 'Nevada',
   },
   {
-    label: "New Hampshire",
-    value: "New Hampshire",
+    label: 'New Hampshire',
+    value: 'New Hampshire',
   },
   {
-    label: "New Jersey",
-    value: "New Jersey",
+    label: 'New Jersey',
+    value: 'New Jersey',
   },
   {
-    label: "New Mexico",
-    value: "New Mexico",
+    label: 'New Mexico',
+    value: 'New Mexico',
   },
   {
-    label: "New York",
-    value: "New York",
+    label: 'New York',
+    value: 'New York',
   },
   {
-    label: "North Carolina",
-    value: "North Carolina",
+    label: 'North Carolina',
+    value: 'North Carolina',
   },
   {
-    label: "North Dakota",
-    value: "North Dakota",
+    label: 'North Dakota',
+    value: 'North Dakota',
   },
   {
-    label: "Ohio",
-    value: "Ohio",
+    label: 'Ohio',
+    value: 'Ohio',
   },
   {
-    label: "Oklahoma",
-    value: "Oklahoma",
+    label: 'Oklahoma',
+    value: 'Oklahoma',
   },
   {
-    label: "Oregon",
-    value: "Oregon",
+    label: 'Oregon',
+    value: 'Oregon',
   },
   {
-    label: "Pennsylvania",
-    value: "Pennsylvania[D]",
+    label: 'Pennsylvania',
+    value: 'Pennsylvania[D]',
   },
   {
-    label: "Rhode Island",
-    value: "Rhode Island",
+    label: 'Rhode Island',
+    value: 'Rhode Island',
   },
   {
-    label: "South Carolina",
-    value: "South Carolina",
+    label: 'South Carolina',
+    value: 'South Carolina',
   },
   {
-    label: "South Dakota",
-    value: "South Dakota",
+    label: 'South Dakota',
+    value: 'South Dakota',
   },
   {
-    label: "Tennessee",
-    value: "Tennessee",
+    label: 'Tennessee',
+    value: 'Tennessee',
   },
   {
-    label: "Texas",
-    value: "Texas",
+    label: 'Texas',
+    value: 'Texas',
   },
   {
-    label: "Utah",
-    value: "Utah",
+    label: 'Utah',
+    value: 'Utah',
   },
   {
-    label: "Vermont",
-    value: "Vermont",
+    label: 'Vermont',
+    value: 'Vermont',
   },
   {
-    label: "Virginia",
-    value: "Virginia[D]",
+    label: 'Virginia',
+    value: 'Virginia[D]',
   },
   {
-    label: "Washington",
-    value: "Washington",
+    label: 'Washington',
+    value: 'Washington',
   },
   {
-    label: "West Virginia",
-    value: "West Virginia",
+    label: 'West Virginia',
+    value: 'West Virginia',
   },
   {
-    label: "Wisconsin",
-    value: "Wisconsin",
+    label: 'Wisconsin',
+    value: 'Wisconsin',
   },
   {
-    label: "Wyoming",
-    value: "Wyoming",
+    label: 'Wyoming',
+    value: 'Wyoming',
   },
 ];
 
 const mapBox_token =
-  "pk.eyJ1IjoiYnJ1ZHJld2FyZHMiLCJhIjoiY2wwMGYwZWduMGoyajNkbmY0ZGo2NDR5bSJ9.fBDDTBfSZ5GC8pSYyP41BQ";
+  'pk.eyJ1IjoiYnJ1ZHJld2FyZHMiLCJhIjoiY2wwMGYwZWduMGoyajNkbmY0ZGo2NDR5bSJ9.fBDDTBfSZ5GC8pSYyP41BQ';
 
-export const AddCustomer = ({ navigation, route }) => {
+export const AddCustomer = ({navigation, route}) => {
   const [pageIndex, setPageIndex] = useState(0);
-  const [name, setName] = useState("");
-  const [managerName, setManagerName] = useState("");
-  const [mobileNo, setMobileNo] = useState("");
-  const [countryName, setcountryName] = useState("US");
-  const [countryCode, setcountryCode] = useState("+1");
+  const [name, setName] = useState('');
+  const [managerName, setManagerName] = useState('');
+  const [mobileNo, setMobileNo] = useState('');
+  const [countryName, setcountryName] = useState('US');
+  const [countryCode, setcountryCode] = useState('+1');
   const [Value, setValue] = useState(null);
-  const [address, setAddress] = useState("");
-  const [state, setState] = useState("Alabama");
-  const [city, setCity] = useState("");
+  const [address, setAddress] = useState('');
+  const [state, setState] = useState('Alabama');
+  const [city, setCity] = useState('');
   const [lat, setLat] = useState(0);
   const [long, setLong] = useState(0);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [profile, setProfile] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mapVisible, setMapVisible] = useState(false);
@@ -319,10 +319,10 @@ export const AddCustomer = ({ navigation, route }) => {
   const [index, setIndex] = useState(0);
   const [timingData, setTimingData] = useState(Array1);
   const [images, setImages] = useState([]);
-  const [about, setAbout] = useState("");
+  const [about, setAbout] = useState('');
   const [stateModal, setStateModal] = useState(false);
   const [backValue, setBackValue] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const [AllData, setAllData] = useState([]);
   const ref_ResName = useRef();
   const ref_managerName = useRef();
@@ -334,67 +334,67 @@ export const AddCustomer = ({ navigation, route }) => {
 
   MapboxGL.setAccessToken(mapBox_token);
 
-  const onCountrySelect = (country) => {
+  const onCountrySelect = country => {
     setcountryName(country.cca2);
-    setcountryCode("+" + country.callingCode[0]);
+    setcountryCode('+' + country.callingCode[0]);
   };
 
   useEffect(() => {
     // dataGet()
-    const subscribe = navigation.addListener("focus", () => {
+    const subscribe = navigation.addListener('focus', () => {
       dataGet();
     });
   }, []);
 
-  const onSearch = async (test) => {
+  const onSearch = async test => {
     setSearchText(test);
     try {
       var requestOptions = {
-        method: "GET",
-        redirect: "follow",
+        method: 'GET',
+        redirect: 'follow',
       };
 
       fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${test}.json?access_token=pk.eyJ1IjoiYnJ1ZHJld2FyZHMiLCJhIjoiY2wwMGYwZWduMGoyajNkbmY0ZGo2NDR5bSJ9.fBDDTBfSZ5GC8pSYyP41BQ`,
-        requestOptions
+        requestOptions,
       )
-        .then((response) => response.json())
-        .then((result) => {
+        .then(response => response.json())
+        .then(result => {
           setAllData(result.features);
-          console.log("Get Error::", result.features[0].center[0]);
-          console.log("Get Error::", result.features[0].center[1]);
+          console.log('Get Error::', result.features[0].center[0]);
+          console.log('Get Error::', result.features[0].center[1]);
         })
-        .catch((error) => console.log("error", error));
+        .catch(error => console.log('error', error));
     } catch (err) {
-      console.log("Get Error::", err);
+      console.log('Get Error::', err);
     }
   };
 
   const selectFile = async () => {
     setImageVisible(false);
-    if (Platform.OS == "ios") {
+    if (Platform.OS == 'ios') {
       let options = {
-        mediaType: "photo",
+        mediaType: 'photo',
         maxWidth: 300,
         maxHeight: 550,
         quality: 1,
       };
-      launchImageLibrary(options, (response) => {
-        console.log("Response = ", response);
+      launchImageLibrary(options, response => {
+        console.log('Response = ', response);
         setLoading(true);
         if (response.didCancel) {
-          alert("User cancelled camera picker");
+          alert('User cancelled camera picker');
           setLoading(false);
           return;
-        } else if (response.errorCode == "camera_unavailable") {
-          alert("Camera not available on device");
+        } else if (response.errorCode == 'camera_unavailable') {
+          alert('Camera not available on device');
           setLoading(false);
           return;
-        } else if (response.errorCode == "permission") {
-          alert("Permission not satisfied");
+        } else if (response.errorCode == 'permission') {
+          alert('Permission not satisfied');
           setLoading(false);
           return;
-        } else if (response.errorCode == "others") {
+        } else if (response.errorCode == 'others') {
           alert(response.errorMessage);
           setLoading(false);
           return;
@@ -409,8 +409,8 @@ export const AddCustomer = ({ navigation, route }) => {
           width: 300,
           height: 400,
           cropping: true,
-        }).then((image) => {
-          var filename = image.path.substring(image.path.lastIndexOf("/") + 1);
+        }).then(image => {
+          var filename = image.path.substring(image.path.lastIndexOf('/') + 1);
           setProfile([
             {
               uri: image.path,
@@ -425,7 +425,7 @@ export const AddCustomer = ({ navigation, route }) => {
     }
   };
 
-  const selectedDate = (mode) => {
+  const selectedDate = mode => {
     setTimeVisible(false);
     if (mode?.time) {
       timingData[index].time = mode.time;
@@ -437,14 +437,14 @@ export const AddCustomer = ({ navigation, route }) => {
   };
 
   const requestCameraPermission = async () => {
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.CAMERA,
           {
-            title: "Camera Permission",
-            message: "App needs camera permission",
-          }
+            title: 'Camera Permission',
+            message: 'App needs camera permission',
+          },
         );
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
@@ -456,20 +456,20 @@ export const AddCustomer = ({ navigation, route }) => {
   };
 
   const requestExternalWritePermission = async () => {
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
-            title: "External Storage Write Permission",
-            message: "App needs write permission",
-          }
+            title: 'External Storage Write Permission',
+            message: 'App needs write permission',
+          },
         );
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
         console.warn(err);
-        alert("Write permission err", err);
+        alert('Write permission err', err);
       }
       return false;
     } else return true;
@@ -477,9 +477,9 @@ export const AddCustomer = ({ navigation, route }) => {
 
   const takeImage = async () => {
     setImageVisible(false);
-    if (Platform.OS == "ios") {
+    if (Platform.OS == 'ios') {
       let options = {
-        mediaType: "photo",
+        mediaType: 'photo',
         maxWidth: 300,
         maxHeight: 550,
         quality: 1,
@@ -487,22 +487,22 @@ export const AddCustomer = ({ navigation, route }) => {
       let isCameraPermitted = await requestCameraPermission();
       let isStoragePermitted = await requestExternalWritePermission();
       if (isCameraPermitted && isStoragePermitted) {
-        launchCamera(options, (response) => {
-          console.log("Response = ", response);
+        launchCamera(options, response => {
+          console.log('Response = ', response);
           setLoading(true);
           if (response.didCancel) {
-            alert("User cancelled camera picker");
+            alert('User cancelled camera picker');
             setLoading(false);
             return;
-          } else if (response.errorCode == "camera_unavailable") {
-            alert("Camera not available on device");
+          } else if (response.errorCode == 'camera_unavailable') {
+            alert('Camera not available on device');
             setLoading(false);
             return;
-          } else if (response.errorCode == "permission") {
-            alert("Permission not satisfied");
+          } else if (response.errorCode == 'permission') {
+            alert('Permission not satisfied');
             setLoading(false);
             return;
-          } else if (response.errorCode == "others") {
+          } else if (response.errorCode == 'others') {
             alert(response.errorMessage);
             setLoading(false);
             return;
@@ -519,9 +519,9 @@ export const AddCustomer = ({ navigation, route }) => {
           width: 300,
           height: 400,
           cropping: true,
-        }).then((image) => {
+        }).then(image => {
           console.log(image);
-          var filename = image.path.substring(image.path.lastIndexOf("/") + 1);
+          var filename = image.path.substring(image.path.lastIndexOf('/') + 1);
           setProfile([
             {
               uri: image.path,
@@ -541,38 +541,38 @@ export const AddCustomer = ({ navigation, route }) => {
       enableHighAccuracy: true,
       timeout: 15000,
     })
-      .then((location) => {
+      .then(location => {
         console.log(location);
       })
-      .catch((error) => {
-        const { code, message } = error;
+      .catch(error => {
+        const {code, message} = error;
         console.warn(code, message);
       });
   };
 
   const getFullAddress = async (long, lat) => {
     var requestOptions = {
-      method: "GET",
-      redirect: "follow",
+      method: 'GET',
+      redirect: 'follow',
     };
 
     fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/Market%20Street%20and%20Fremont%20Street.json?types=address&proximity=${parseFloat(
-        long
+        long,
       )},${parseFloat(lat)}&access_token=${mapBox_token}`,
-      requestOptions
+      requestOptions,
     )
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   };
 
   const dataGet = async () => {
     setLoading(true);
-    const id1 = await AsyncStorage.getItem("id");
+    const id1 = await AsyncStorage.getItem('id');
     const id = encodeURIComponent(id1);
     const requestBody = `id=${id}`;
-    const response = await CafeProfileApi(requestBody);
+    const response = await CafeProfileApi(requestBody);  
     if (!response.sucecess) {
       setLoading(false);
       alert(response.message);
@@ -580,14 +580,14 @@ export const AddCustomer = ({ navigation, route }) => {
       setLoading(false);
       setName(response.data.restaurant_name);
       setManagerName(response.data.manager_name);
-
-      let newText = "";
-      let cleaned = ("" + response.data.phone_number).replace(/\D/g, "");
+    
+      let newText = '';
+      let cleaned = ('' + response.data.phone_number).replace(/\D/g, '');
       for (var i = 0; i < cleaned.length; i++) {
         if (i == 3) {
-          newText = newText + "-";
+          newText = newText + '-';
         } else if (i == 6) {
-          newText = newText + "-";
+          newText = newText + '-';
         }
         newText = newText + cleaned[i];
       }
@@ -602,15 +602,15 @@ export const AddCustomer = ({ navigation, route }) => {
       getFullAddress(response.data.longitude, response.data.lattitude);
 
       response.data?.images.map((item, index) => {
-        var filename = item.substring(item.lastIndexOf("/") + 1);
-        images.push({ uri: item, fileName: filename });
+        var filename = item.substring(item.lastIndexOf('/') + 1);
+        images.push({uri: item, fileName: filename});
       });
-      setcountryCode("+" + response.data.country_code);
+      setcountryCode('+' + response.data.country_code);
       var filename = response.data.image.substring(
-        response.data.image.lastIndexOf("/") + 1
+        response.data.image.lastIndexOf('/') + 1,
       );
       var type = response.data.image.substring(
-        response.data.image.lastIndexOf(".") + 1
+        response.data.image.lastIndexOf('.') + 1,
       );
       setProfile([
         {
@@ -619,7 +619,7 @@ export const AddCustomer = ({ navigation, route }) => {
           type: `image/${type}`,
         },
       ]);
-      if (response?.data?.cafe_timing[0]?.sunday?.time == "custom") {
+      if (response?.data?.cafe_timing[0]?.sunday?.time == 'custom') {
         (timingData[0].time = response.data?.cafe_timing[0]?.sunday?.time),
           (timingData[0].start = response.data?.cafe_timing[0]?.sunday?.start),
           (timingData[0].end = response.data?.cafe_timing[0]?.sunday?.end);
@@ -627,7 +627,7 @@ export const AddCustomer = ({ navigation, route }) => {
         timingData[0].time = response.data?.cafe_timing[0]?.sunday?.time;
       }
 
-      if (response.data?.cafe_timing[0]?.monday?.time == "custom") {
+      if (response.data?.cafe_timing[0]?.monday?.time == 'custom') {
         (timingData[1].time = response.data?.cafe_timing[0]?.monday?.time),
           (timingData[1].start = response.data?.cafe_timing[0]?.monday?.start),
           (timingData[1].end = response.data?.cafe_timing[0]?.monday?.end);
@@ -635,7 +635,7 @@ export const AddCustomer = ({ navigation, route }) => {
         timingData[1].time = response.data?.cafe_timing[0]?.monday?.time;
       }
 
-      if (response.data?.cafe_timing[0]?.tuesday?.time == "custom") {
+      if (response.data?.cafe_timing[0]?.tuesday?.time == 'custom') {
         (timingData[2].time = response.data?.cafe_timing[0]?.tuesday?.time),
           (timingData[2].start = response.data?.cafe_timing[0]?.tuesday?.start),
           (timingData[2].end = response.data?.cafe_timing[0]?.tuesday?.end);
@@ -643,7 +643,7 @@ export const AddCustomer = ({ navigation, route }) => {
         timingData[2].time = response.data?.cafe_timing[0]?.tuesday?.time;
       }
 
-      if (response.data?.cafe_timing[0]?.wednesday?.time == "custom") {
+      if (response.data?.cafe_timing[0]?.wednesday?.time == 'custom') {
         (timingData[3].time = response.data?.cafe_timing[0]?.wednesday?.time),
           (timingData[3].start =
             response.data?.cafe_timing[0]?.wednesday?.start),
@@ -652,7 +652,7 @@ export const AddCustomer = ({ navigation, route }) => {
         timingData[3].time = response.data?.cafe_timing[0]?.wednesday?.time;
       }
 
-      if (response.data?.cafe_timing[0]?.thursday?.time == "custom") {
+      if (response.data?.cafe_timing[0]?.thursday?.time == 'custom') {
         (timingData[4].time = response.data?.cafe_timing[0]?.thursday?.time),
           (timingData[4].start =
             response.data?.cafe_timing[0]?.thursday?.start),
@@ -661,7 +661,7 @@ export const AddCustomer = ({ navigation, route }) => {
         timingData[4].time = response.data?.cafe_timing[0]?.thursday?.time;
       }
 
-      if (response.data?.cafe_timing[0]?.friday?.time == "custom") {
+      if (response.data?.cafe_timing[0]?.friday?.time == 'custom') {
         (timingData[5].time = response.data?.cafe_timing[0]?.friday?.time),
           (timingData[5].start = response.data?.cafe_timing[0]?.friday?.start),
           (timingData[5].end = response.data?.cafe_timing[0]?.friday?.end);
@@ -669,7 +669,7 @@ export const AddCustomer = ({ navigation, route }) => {
         timingData[5].time = response.data?.cafe_timing[0]?.friday?.time;
       }
 
-      if (response.data?.cafe_timing[0]?.saturday?.time == "custom") {
+      if (response.data?.cafe_timing[0]?.saturday?.time == 'custom') {
         (timingData[6].time = response.data?.cafe_timing[0]?.saturday?.time),
           (timingData[6].start =
             response.data?.cafe_timing[0]?.saturday?.start),
@@ -681,18 +681,18 @@ export const AddCustomer = ({ navigation, route }) => {
   };
 
   const onProfileApi = async () => {
-    if (name == "") {
-      Alert.alert("Registration", "Please Enter Restaurant Name.");
-    } else if (managerName == "") {
-      Alert.alert("Registration", "Please Enter Manager Name.");
-    } else if (Value == "") {
-      Alert.alert("Registration", "Please Enter Mobile Number.");
+    if (name == '') {
+      Alert.alert('Registration', 'Please Enter Restaurant Name.');
+    } else if (managerName == '') {
+      Alert.alert('Registration', 'Please Enter Manager Name.');
+    } else if (Value == '') {
+      Alert.alert('Registration', 'Please Enter Mobile Number.');
     } else if (Value.length != 12) {
-      Alert.alert("Registration", "Please Enter Valid Mobile Number.");
+      Alert.alert('Registration', 'Please Enter Valid Mobile Number.');
     } else {
       try {
-        const id1 = await AsyncStorage.getItem("id");
-        console.log("Get ID::", id1);
+        const id1 = await AsyncStorage.getItem('id');
+        console.log('Get ID::', id1);
         setLoading(true);
         let sun = [];
         let mon = [];
@@ -702,7 +702,7 @@ export const AddCustomer = ({ navigation, route }) => {
         let fri = [];
         let sat = [];
 
-        if (timingData[0].time == "custom") {
+        if (timingData[0].time == 'custom') {
           sun = [
             {
               time: timingData[0].time,
@@ -711,10 +711,10 @@ export const AddCustomer = ({ navigation, route }) => {
             },
           ];
         } else {
-          sun = [{ time: timingData[0].time }];
+          sun = [{time: timingData[0].time}];
         }
 
-        if (timingData[1].time == "custom") {
+        if (timingData[1].time == 'custom') {
           mon = [
             {
               time: timingData[1].time,
@@ -723,10 +723,10 @@ export const AddCustomer = ({ navigation, route }) => {
             },
           ];
         } else {
-          mon = [{ time: timingData[1].time }];
+          mon = [{time: timingData[1].time}];
         }
 
-        if (timingData[2].time == "custom") {
+        if (timingData[2].time == 'custom') {
           tue = [
             {
               time: timingData[2].time,
@@ -735,10 +735,10 @@ export const AddCustomer = ({ navigation, route }) => {
             },
           ];
         } else {
-          tue = [{ time: timingData[2].time }];
+          tue = [{time: timingData[2].time}];
         }
 
-        if (timingData[3].time == "custom") {
+        if (timingData[3].time == 'custom') {
           wed = [
             {
               time: timingData[3].time,
@@ -747,10 +747,10 @@ export const AddCustomer = ({ navigation, route }) => {
             },
           ];
         } else {
-          wed = [{ time: timingData[3].time }];
+          wed = [{time: timingData[3].time}];
         }
 
-        if (timingData[4].time == "custom") {
+        if (timingData[4].time == 'custom') {
           thus = [
             {
               time: timingData[4].time,
@@ -759,10 +759,10 @@ export const AddCustomer = ({ navigation, route }) => {
             },
           ];
         } else {
-          thus = [{ time: timingData[4].time }];
+          thus = [{time: timingData[4].time}];
         }
 
-        if (timingData[5].time == "custom") {
+        if (timingData[5].time == 'custom') {
           fri = [
             {
               time: timingData[5].time,
@@ -771,10 +771,10 @@ export const AddCustomer = ({ navigation, route }) => {
             },
           ];
         } else {
-          fri = [{ time: timingData[5].time }];
+          fri = [{time: timingData[5].time}];
         }
 
-        if (timingData[6].time == "custom") {
+        if (timingData[6].time == 'custom') {
           sat = [
             {
               time: timingData[6].time,
@@ -783,7 +783,7 @@ export const AddCustomer = ({ navigation, route }) => {
             },
           ];
         } else {
-          sat = [{ time: timingData[6].time }];
+          sat = [{time: timingData[6].time}];
         }
 
         const id2 = encodeURIComponent(id1);
@@ -796,13 +796,13 @@ export const AddCustomer = ({ navigation, route }) => {
         const saturday = encodeURIComponent(JSON.stringify(sat));
 
         const request = `id=${id2}&sunday=${sunday}&monday=${monday}&tuesday=${tuesday}&wednesday=${wednesday}&thursday=${thursday}&friday=${friday}&saturday=${saturday}`;
-        console.log("Sunday>>>>>>>", id1);
+        console.log('Sunday>>>>>>>', id1);
 
         const responses = await TimeData(request);
-        console.log("Get Response::", responses);
+        console.log('Get Response::', responses);
 
         var formdata = new FormData();
-        formdata.append("image", {
+        formdata.append('image', {
           name: profile[0]?.fileName,
           uri: profile[0]?.uri,
           type: profile[0]?.type,
@@ -815,11 +815,11 @@ export const AddCustomer = ({ navigation, route }) => {
           arrayImage.push(item.fileName);
         });
         if (arrayImage.length == 0) {
-          alert("Please select restaurant banner images.");
+          alert('Please select restaurant banner images.');
         } else {
-          let num = Value.replace("-", "");
-          let num2 = num.replace("-", "");
-          console.log("Get Numbers:::", num2);
+          let num = Value.replace('-', '');
+          let num2 = num.replace('-', '');
+          console.log('Get Numbers:::', num2);
           const id = encodeURIComponent(id1);
           const restaurant_name = encodeURIComponent(name);
           const manager_name = encodeURIComponent(managerName);
@@ -848,7 +848,7 @@ export const AddCustomer = ({ navigation, route }) => {
         }
       } catch (err) {
         setLoading(false);
-        console.log("Get Response:::", err);
+        console.log('Get Response:::', err);
       }
     }
   };
@@ -856,33 +856,33 @@ export const AddCustomer = ({ navigation, route }) => {
   const selectFile1 = async () => {
     setImageVisible(false);
     let options = {
-      mediaType: "photo",
+      mediaType: 'photo',
       maxWidth: 300,
       maxHeight: 550,
       quality: 1,
     };
-    launchImageLibrary(options, async (response) => {
+    launchImageLibrary(options, async response => {
       setLoading(true);
       if (response.didCancel) {
-        alert("User cancelled camera picker");
+        alert('User cancelled camera picker');
         setLoading(false);
         return;
-      } else if (response.errorCode == "camera_unavailable") {
-        alert("Camera not available on device");
+      } else if (response.errorCode == 'camera_unavailable') {
+        alert('Camera not available on device');
         setLoading(false);
         return;
-      } else if (response.errorCode == "permission") {
-        alert("Permission not satisfied");
+      } else if (response.errorCode == 'permission') {
+        alert('Permission not satisfied');
         setLoading(false);
         return;
-      } else if (response.errorCode == "others") {
+      } else if (response.errorCode == 'others') {
         alert(response.errorMessage);
         setLoading(false);
         return;
       }
 
       var formdata = new FormData();
-      formdata.append("image", {
+      formdata.append('image', {
         name: response.assets[0]?.fileName,
         uri: response.assets[0]?.uri,
         type: response.assets[0]?.type,
@@ -897,12 +897,12 @@ export const AddCustomer = ({ navigation, route }) => {
     });
   };
 
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
         style={[
           styles.itemView,
-          { borderBottomWidth: timingData?.length - 1 == index ? 0 : 0.5 },
+          {borderBottomWidth: timingData?.length - 1 == index ? 0 : 0.5},
         ]}
       >
         <View style={styles.viewList}>
@@ -912,25 +912,24 @@ export const AddCustomer = ({ navigation, route }) => {
               width: 35,
               borderRadius: 35,
               backgroundColor:
-                item.time == "Open 24 hours"
-                  ? "rgba(55, 129, 252,0.2)"
-                  : item.time == "Closed"
-                  ? "rgba(255, 85, 85,0.2)"
-                  : "rgba(103, 193, 23,0.2)",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+                item.time == 'Open 24 hours'
+                  ? 'rgba(55, 129, 252,0.2)'
+                  : item.time == 'Closed'
+                  ? 'rgba(255, 85, 85,0.2)'
+                  : 'rgba(103, 193, 23,0.2)',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
             <Image
               style={[
                 styles.bagImage,
                 {
                   tintColor:
-                    item.time == "Open 24 hours"
-                      ? "#3781FC"
-                      : item.time == "Closed"
-                      ? "#FF5555"
-                      : "#67C117",
+                    item.time == 'Open 24 hours'
+                      ? '#3781FC'
+                      : item.time == 'Closed'
+                      ? '#FF5555'
+                      : '#67C117',
                 },
               ]}
               source={calendar}
@@ -941,7 +940,7 @@ export const AddCustomer = ({ navigation, route }) => {
           <View>
             <Text style={styles.nameText}>{item.name}</Text>
             <Text style={styles.statusText}>
-              {item.time == "custom"
+              {item.time == 'custom'
                 ? `Open at ${item.start} - ${item.end}`
                 : `${item.time}`}
             </Text>
@@ -950,8 +949,7 @@ export const AddCustomer = ({ navigation, route }) => {
             style={styles.changeButton}
             onPress={() => {
               setTimeVisible(true), setIndex(index);
-            }}
-          >
+            }}>
             <Text style={styles.changeText}>Change</Text>
           </TouchableOpacity>
         </View>
@@ -959,22 +957,22 @@ export const AddCustomer = ({ navigation, route }) => {
     );
   };
 
-  const renderItem1 = ({ item, index }) => {
+  const renderItem1 = ({item, index}) => {
     return (
       <View style={styles.ImageRenderView}>
-        <Image style={styles.renderImage} source={{ uri: item.uri }} />
+        <Image style={styles.renderImage} source={{uri: item.uri}} />
       </View>
     );
   };
 
-  const phoneNumberString = async (text) => {
-    let newText = "";
-    let cleaned = ("" + text).replace(/\D/g, "");
+  const phoneNumberString = async text => {
+    let newText = '';
+    let cleaned = ('' + text).replace(/\D/g, '');
     for (var i = 0; i < cleaned.length; i++) {
       if (i == 3) {
-        newText = newText + "-";
+        newText = newText + '-';
       } else if (i == 6) {
-        newText = newText + "-";
+        newText = newText + '-';
       }
       newText = newText + cleaned[i];
     }
@@ -985,29 +983,27 @@ export const AddCustomer = ({ navigation, route }) => {
     }
   };
 
-  const onclickMap = (item) => {
+  const onclickMap = item => {
     setLong(item.center[0]);
     setLat(item.center[1]);
-    setSearchText("");
+    setSearchText('');
   };
 
-  const renderItem2 = ({ item, index }) => {
+  const renderItem2 = ({item, index}) => {
     return (
       <TouchableOpacity
         style={{
-          width: "95%",
+          width: '95%',
           marginLeft: PX(10),
           height: PX(60),
         }}
-        onPress={() => onclickMap(item)}
-      >
+        onPress={() => onclickMap(item)}>
         <Text
           style={{
             fontSize: PX(12),
-            fontFamily: "Montserrat-Regular",
-            color: "#000",
-          }}
-        >
+            fontFamily: 'Montserrat-Regular',
+            color: '#000',
+          }}>
           {item.place_name}
         </Text>
       </TouchableOpacity>
@@ -1019,90 +1015,92 @@ export const AddCustomer = ({ navigation, route }) => {
       <View
         style={{
           height: hasNotch() ? PX(35) : PX(10),
-          backgroundColor: "#000",
+          backgroundColor: '#000',
         }}
       />
       <Loader isLoding={loading} />
       {mapVisible ? (
         <>
-          <MapboxGL.MapView style={styles.map} onPress={(res) => {}}>
+          <MapboxGL.MapView
+            style={styles.map}
+            onPress={res => {
+            }}>
             <MapboxGL.Camera
               // draggable={true}
               zoomLevel={6}
               centerCoordinate={[parseFloat(lat), parseFloat(long)]}
             />
             <MapboxGL.PointAnnotation
-              id={"pointAnnotation"}
+              id={'pointAnnotation'}
               coordinate={[parseFloat(lat), parseFloat(long)]}
               draggable={true}
-              onDragEnd={(e) => {
-                console.log("dragEnd", parseFloat(lat), parseFloat(long));
-                console.log("dragEnd", e.geometry.coordinates[0]);
+              onDragEnd={e => {
+                console.log('dragEnd', parseFloat(lat), parseFloat(long));
+                console.log('dragEnd', e.geometry.coordinates[0]);
                 setLat(JSON.stringify(e.geometry.coordinates[0]));
                 setLong(JSON.stringify(e.geometry.coordinates[1]));
               }}
             />
+         
           </MapboxGL.MapView>
           <View
             style={{
-              position: "absolute",
+              position: 'absolute',
               height: PX(60),
-              width: "85%",
+              width: '85%',
               marginTop: PX(50),
-              alignSelf: "center",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+              alignSelf: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+           
             <View
               style={{
                 height: PX(50),
-                width: "100%",
+                width: '100%',
                 borderRadius: PX(10),
-                backgroundColor: "#fff",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "row",
-              }}
-            >
+                backgroundColor: '#fff',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
               <Image
-                style={{ height: PX(20), width: PX(20), resizeMode: "contain" }}
+                style={{height: PX(20), width: PX(20), resizeMode: 'contain'}}
                 source={search}
               />
               <TextInput
                 value={searchText}
-                onChangeText={(text) => onSearch(text)}
+                onChangeText={text => onSearch(text)}
                 placeholder="search area street name"
-                placeholderTextColor={"#C4C4C4"}
+                placeholderTextColor={'#C4C4C4'}
                 style={{
                   marginLeft: PX(10),
-                  width: "70%",
+                  width: '70%',
                   fontSize: PX(16),
-                  color: "#C4C4C4",
+                  color: '#C4C4C4',
                 }}
               />
               <Image
                 style={{
                   height: PX(20),
                   width: PX(20),
-                  resizeMode: "contain",
+                  resizeMode: 'contain',
                   marginLeft: PX(10),
                 }}
                 source={addressMap}
               />
-              {searchText != "" && (
+              {searchText != '' && (
                 <View
                   style={{
                     height: PX(300),
-                    width: "100%",
-                    backgroundColor: "#fff",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    position: "absolute",
+                    width: '100%',
+                    backgroundColor: '#fff',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'absolute',
                     top: PX(45),
-                  }}
-                >
+                  }}>
                   <FlatList
                     data={AllData}
                     renderItem={renderItem2}
@@ -1115,10 +1113,9 @@ export const AddCustomer = ({ navigation, route }) => {
         </>
       ) : (
         <>
-          <View style={{ paddingHorizontal: PX(20), alignItems: "center" }}>
+          <View style={{paddingHorizontal: PX(20), alignItems: 'center'}}>
             <View
-              style={[styles.headerView, { justifyContent: "space-between" }]}
-            >
+              style={[styles.headerView, {justifyContent: 'space-between'}]}>
               <TouchableOpacity
                 onPress={() => {
                   backValue
@@ -1126,20 +1123,19 @@ export const AddCustomer = ({ navigation, route }) => {
                     : pageIndex != 0
                     ? setPageIndex(pageIndex - 1)
                     : navigation.goBack();
-                }}
-              >
+                }}>
                 <Image
                   style={{
                     height: PX(20),
                     width: PX(20),
-                    resizeMode: "contain",
+                    resizeMode: 'contain',
                   }}
                   source={backArrow}
                 />
               </TouchableOpacity>
               <Text style={styles.headerText}>Edit Cafe</Text>
               <Image
-                style={{ height: PX(20), width: PX(20), resizeMode: "contain" }}
+                style={{height: PX(20), width: PX(20), resizeMode: 'contain'}}
               />
             </View>
           </View>
@@ -1150,42 +1146,39 @@ export const AddCustomer = ({ navigation, route }) => {
               behavior="padding"
               contentContainerStyle={{
                 paddingBottom: pageIndex == 2 ? PX(150) : PX(200),
-              }}
-            >
+              }}>
               <View
                 style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "30%",
-                }}
-              >
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '30%',
+                }}>
                 <Image
-                  source={require("../../Assets/main.png")}
+                  source={require('../../Assets/main.png')}
                   style={{
                     borderRadius: 50,
                     width: 99,
                     height: 99,
                     borderWidth: PX(3),
-                    borderColor: "#ffff",
+                    borderColor: '#ffff',
                   }}
                 />
                 <View
                   style={{
-                    position: "absolute",
+                    position: 'absolute',
                     right: PX(170),
                     bottom: PX(53),
                     width: PX(21),
                     height: PX(21),
-                    backgroundColor: "#ffffff",
+                    backgroundColor: '#ffffff',
                     borderRadius: PX(10),
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderColor: "#000",
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderColor: '#000',
                     borderWidth: 0.2,
-                  }}
-                >
+                  }}>
                   <Image
-                    source={require("../../Assets/camero.png")}
+                    source={require('../../Assets/camero.png')}
                     style={{
                       width: PX(11.06),
                       height: PX(8.85),
@@ -1195,11 +1188,10 @@ export const AddCustomer = ({ navigation, route }) => {
               </View>
               <View
                 style={{
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
+                  width: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
                 <View style={styles.dataView}>
                   <Text style={styles.textInputTitle}>
                     Enter Restaurant Name
@@ -1207,12 +1199,12 @@ export const AddCustomer = ({ navigation, route }) => {
                   <TextInput
                     ref={ref_ResName}
                     value={name}
-                    onChangeText={(text) => {
+                    onChangeText={text => {
                       setName(text);
                     }}
                     placeholder="Book Cafe"
                     style={styles.textInputStyle}
-                    returnKeyType={"next"}
+                    returnKeyType={'next'}
                     onSubmitEditing={() => ref_managerName.current.focus()}
                   />
 
@@ -1220,12 +1212,12 @@ export const AddCustomer = ({ navigation, route }) => {
                   <TextInput
                     ref={ref_managerName}
                     value={managerName}
-                    onChangeText={(text) => {
+                    onChangeText={text => {
                       setManagerName(text);
                     }}
                     placeholder="Doron  Eliezer"
                     style={styles.textInputStyle}
-                    returnKeyType={"next"}
+                    returnKeyType={'next'}
                     onSubmitEditing={() => ref_email.current.focus()}
                   />
 
@@ -1233,36 +1225,35 @@ export const AddCustomer = ({ navigation, route }) => {
                   <TextInput
                     ref={ref_email}
                     value={email}
-                    onChangeText={(text) => {
+                    onChangeText={text => {
                       setEmail(text);
                     }}
                     placeholder="Doron  Eliezer"
                     style={styles.textInputStyle}
                     editable={false}
-                    returnKeyType={"next"}
+                    returnKeyType={'next'}
                     onSubmitEditing={() => ref_mobileNumber.current.focus()}
                   />
 
                   <Text style={styles.textInputTitle1}>Phone Number</Text>
 
                   <View style={styles.textInputView1}>
-                    <View style={[styles.imageView1, { flexDirection: "row" }]}>
+                    <View style={[styles.imageView1, {flexDirection: 'row'}]}>
                       <Image
                         style={{
                           height: PX(25),
                           width: PX(22),
-                          resizeMode: "contain",
+                          resizeMode: 'contain',
                         }}
-                        source={require("../../Assets/flag.png")}
+                        source={require('../../Assets/flag.png')}
                       />
                       <Text
                         style={{
                           fontFamily: Fonts.FONTS.MontserratRegular,
                           fontSize: PX(14),
                           marginLeft: PX(5),
-                          color: "#000",
-                        }}
-                      >
+                          color: '#000',
+                        }}>
                         +1
                       </Text>
                       <Image style={styles.Images} source={downArrow} />
@@ -1270,29 +1261,28 @@ export const AddCustomer = ({ navigation, route }) => {
                     <TextInput
                       ref={ref_mobileNumber}
                       value={Value}
-                      onChangeText={(text) => phoneNumberString(text)}
+                      onChangeText={text => phoneNumberString(text)}
                       style={styles.TextInputStyle1}
-                      placeholder={"Mobile Number"}
-                      keyboardType={"decimal-pad"}
+                      placeholder={'Mobile Number'}
+                      keyboardType={'decimal-pad'}
                       // returnKeyType={'next'}
                       maxLength={14}
                     />
                   </View>
                 </View>
                 <TouchableOpacity
-                  style={{ marginTop: PX(15) }}
+                  style={{marginTop: PX(15)}}
                   onPress={() => {
                     setPageIndex(2), setBackValue(true);
-                  }}
-                >
+                  }}>
                   <Text style={styles.hours}>Set Operational Hours</Text>
                 </TouchableOpacity>
 
                 <View
                   style={{
-                    width: "100%",
-                    backgroundColor: "#fff",
-                    shadowColor: "#000",
+                    width: '100%',
+                    backgroundColor: '#fff',
+                    shadowColor: '#000',
                     shadowOffset: {
                       width: 0,
                       height: 1,
@@ -1301,18 +1291,16 @@ export const AddCustomer = ({ navigation, route }) => {
                     shadowRadius: 2.22,
 
                     elevation: 3,
-                    height: "23%",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    height: '23%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     marginTop: PX(30),
-                  }}
-                >
+                  }}>
                   <TouchableOpacity
                     style={styles.Button}
                     onPress={() => {
                       setPageIndex(1);
-                    }}
-                  >
+                    }}>
                     <Text style={styles.BtnText}>Done</Text>
                   </TouchableOpacity>
                 </View>
@@ -1324,20 +1312,18 @@ export const AddCustomer = ({ navigation, route }) => {
                 <KeyboardAwareScrollView
                   showsVerticalScrollIndicator={false}
                   behavior="padding"
-                  contentContainerStyle={{ paddingBottom: PX(300) }}
-                >
+                  contentContainerStyle={{paddingBottom: PX(300)}}>
                   <View
                     style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "33%",
-                    }}
-                  >
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: '33%',
+                    }}>
                     <Image
                       source={
                         profile.length > 0
-                          ? { uri: profile[0].uri }
-                          : require("../../Assets/cafeImage.png")
+                          ? {uri: profile[0].uri}
+                          : require('../../Assets/cafeImage.png')
                       }
                       style={{
                         borderRadius: PX(15),
@@ -1347,24 +1333,23 @@ export const AddCustomer = ({ navigation, route }) => {
                     />
                     <TouchableOpacity
                       style={{
-                        position: "absolute",
-                        right: "47%",
+                        position: 'absolute',
+                        right: '47%',
                         bottom: PX(22),
                         width: PX(23),
                         height: PX(23),
-                        backgroundColor: "#ffffff",
+                        backgroundColor: '#ffffff',
                         borderRadius: PX(23),
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderColor: "#000",
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderColor: '#000',
                         borderWidth: 0.5,
                       }}
                       onPress={() => {
                         setImageVisible(true);
-                      }}
-                    >
+                      }}>
                       <Image
-                        source={require("../../Assets/camero.png")}
+                        source={require('../../Assets/camero.png')}
                         style={{
                           width: PX(11.06),
                           height: PX(8.85),
@@ -1374,11 +1359,10 @@ export const AddCustomer = ({ navigation, route }) => {
                   </View>
                   <View
                     style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "100%",
-                    }}
-                  >
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: '100%',
+                    }}>
                     <View style={styles.dataView}>
                       <Text style={styles.textInputTitle}>Images</Text>
                       <ScrollView horizontal>
@@ -1393,18 +1377,17 @@ export const AddCustomer = ({ navigation, route }) => {
                           style={{
                             height: PX(50),
                             width: PX(60),
-                            alignItems: "center",
-                            justifyContent: "center",
+                            alignItems: 'center',
+                            justifyContent: 'center',
                           }}
-                          onPress={() => selectFile1()}
-                        >
+                          onPress={() => selectFile1()}>
                           <Image
                             style={{
                               height: PX(40),
                               width: PX(40),
-                              resizeMode: "contain",
+                              resizeMode: 'contain',
                             }}
-                            source={require("../../Assets/add.png")}
+                            source={require('../../Assets/add.png')}
                           />
                         </TouchableOpacity>
                       </ScrollView>
@@ -1413,7 +1396,7 @@ export const AddCustomer = ({ navigation, route }) => {
                       <TextInput
                         ref={ref_fullAddress}
                         value={address}
-                        onChangeText={(text) => {
+                        onChangeText={text => {
                           setAddress(text);
                         }}
                         placeholder="Book Cafe"
@@ -1424,40 +1407,38 @@ export const AddCustomer = ({ navigation, route }) => {
 
                       <View
                         style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          width: "100%",
-                        }}
-                      >
-                        <View style={{ width: "48%" }}>
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                            width: '100%',
+                        }}>
+                        <View style={{width: '48%'}}>
                           <Text style={styles.textInputTitle1}>State</Text>
                           <TouchableOpacity
                             style={{
-                              width: "100%",
-                              borderBottomColor: "#C4C4C4",
+                              width: '100%',
+                              borderBottomColor: '#C4C4C4',
                               borderBottomWidth: 1,
                               paddingTop: PX(27),
                               paddingBottom: PX(10),
                             }}
                             onPress={() => {
                               setStateModal(!stateModal);
-                            }}
-                          >
+                            }}>
                             <Text style={styles.textState}>{state}</Text>
                           </TouchableOpacity>
                         </View>
-                        <View style={{ width: "48%" }}>
+                        <View style={{width: '48%'}}>
                           <Text style={styles.textInputTitle1}>City</Text>
                           <TextInput
                             ref={ref_city}
                             value={city}
-                            onChangeText={(text) => {
+                            onChangeText={text => {
                               setCity(text);
                             }}
                             placeholder="Los Angeles"
                             style={styles.textInputStyle}
-                            returnKeyType={"next"}
+                            returnKeyType={'next'}
                             onSubmitEditing={() => ref_des.current.focus()}
                           />
                         </View>
@@ -1466,8 +1447,7 @@ export const AddCustomer = ({ navigation, route }) => {
                         style={styles.locationText}
                         onPress={() => {
                           setMapVisible(true);
-                        }}
-                      >
+                        }}>
                         Get Locations
                       </Text>
 
@@ -1475,7 +1455,7 @@ export const AddCustomer = ({ navigation, route }) => {
                       <TextInput
                         ref={ref_des}
                         value={about}
-                        onChangeText={(text) => {
+                        onChangeText={text => {
                           setAbout(text);
                         }}
                         placeholder="Enter Description"
@@ -1485,20 +1465,18 @@ export const AddCustomer = ({ navigation, route }) => {
                     </View>
                     <View
                       style={{
-                        width: "100%",
-                        backgroundColor: "#fff",
+                        width: '100%',
+                        backgroundColor: '#fff',
 
-                        height: "25%",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
+                        height: '25%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
                       <TouchableOpacity
                         style={styles.Button1}
                         onPress={() => {
                           setPageIndex(2);
-                        }}
-                      >
+                        }}>
                         <Text style={styles.BtnText}>Save</Text>
                       </TouchableOpacity>
                     </View>
@@ -1509,16 +1487,14 @@ export const AddCustomer = ({ navigation, route }) => {
                   {pageIndex == 2 && (
                     <ScrollView
                       showsVerticalScrollIndicator={false}
-                      contentContainerStyle={{ paddingBottom: PX(150) }}
-                    >
+                      contentContainerStyle={{paddingBottom: PX(150)}}>
                       <View
                         style={{
-                          width: "100%",
+                          width: '100%',
                           paddingTop: PX(20),
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
                         <FlatList
                           data={timingData}
                           renderItem={renderItem}
@@ -1529,9 +1505,9 @@ export const AddCustomer = ({ navigation, route }) => {
                       </View>
                       <View
                         style={{
-                          width: "100%",
-                          backgroundColor: "#fff",
-                          shadowColor: "#000",
+                          width: '100%',
+                          backgroundColor: '#fff',
+                          shadowColor: '#000',
                           shadowOffset: {
                             width: 0,
                             height: 3,
@@ -1540,16 +1516,14 @@ export const AddCustomer = ({ navigation, route }) => {
                           shadowRadius: 4.65,
 
                           elevation: 6,
-                          height: "20%",
-                          alignItems: "center",
-                          justifyContent: "center",
+                          height: '20%',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                           marginTop: PX(20),
-                        }}
-                      >
+                        }}>
                         <TouchableOpacity
                           style={styles.Button1}
-                          onPress={() => onProfileApi()}
-                        >
+                          onPress={() => onProfileApi()}>
                           <Text style={styles.BtnText}>Save</Text>
                         </TouchableOpacity>
                       </View>
@@ -1579,24 +1553,22 @@ export const AddCustomer = ({ navigation, route }) => {
             setMapVisible(false);
           }}
           style={{
-            position: "absolute",
+            position: 'absolute',
             bottom: PX(130),
             right: PX(30),
             width: PX(100),
             height: PX(50),
-            backgroundColor: "#F55800",
+            backgroundColor: '#F55800',
             borderRadius: PX(5),
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <Text
             style={{
               fontFamily: Fonts.FONTS.MontserratMedium,
               fontSize: PX(16),
-              color: "#fff",
-            }}
-          >
+              color: '#fff',
+            }}>
             Confirm
           </Text>
         </TouchableOpacity>
@@ -1608,7 +1580,7 @@ export const AddCustomer = ({ navigation, route }) => {
           onRequestClose={() => {
             setTimeVisible(false);
           }}
-          mode={(mode) => selectedDate(mode)}
+          mode={mode => selectedDate(mode)}
         />
       )}
 
@@ -1618,66 +1590,62 @@ export const AddCustomer = ({ navigation, route }) => {
         visible={stateModal}
         onRequestClose={() => {
           setStateModal(false);
-        }}
-      >
+        }}>
         <View style={styles.centeredView1}>
           <View
             style={{
-              height: "100%",
-              width: "100%",
-              backgroundColor: "#fff",
+              height: '100%',
+              width: '100%',
+              backgroundColor: '#fff',
               marginTop: hasNotch() ? PX(35) : 0,
-            }}
-          >
+             
+            }}>
             <View
               style={{
-                width: "94%",
-                alignSelf: "center",
+                width: '94%',
+                alignSelf: 'center',
                 marginVertical: PX(10),
-                alignItems: "flex-end",
-              }}
-            >
+                alignItems: 'flex-end',
+              }}>
               <TouchableOpacity
                 onPress={() => {
                   setStateModal(false);
-                }}
-              >
+                }}>
                 <Image
                   style={{
                     height: PX(35),
                     width: PX(40),
-                    resizeMode: "contain",
-                    tintColor: "#000",
+                    resizeMode: 'contain',
+                    tintColor: '#000',
                   }}
-                  source={require("../../Assets/cross.png")}
+                  source={require('../../Assets/cross.png')}
                 />
               </TouchableOpacity>
             </View>
 
             <FlatList
               data={data}
-              renderItem={({ item, index }) => {
+              renderItem={({item, index}) => {
                 return (
                   <TouchableOpacity
                     style={{
                       height: PX(60),
-                      borderBottomColor: "#828282",
+                      borderBottomColor: '#828282',
                       borderBottomWidth: 1,
-                      width: "100%",
+                      width: '100%',
                       paddingHorizontal: PX(30),
-                      justifyContent: "center",
+                      justifyContent: 'center',
                     }}
                     onPress={() => {
                       setStateModal(false), setState(item.value);
-                    }}
-                  >
+                    }}>
                     <Text style={styles.stateText1}>{item.label}</Text>
                   </TouchableOpacity>
                 );
               }}
               keyExtractor={(item, index) => index.toString()}
               showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ paddingBottom: PX(100) }}
+              contentContainerStyle={{paddingBottom: PX(100)}}
             />
           </View>
         </View>

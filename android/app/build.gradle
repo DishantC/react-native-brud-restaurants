@@ -1,6 +1,8 @@
 apply plugin: "com.android.application"
-
 apply plugin: 'com.google.gms.google-services'
+
+import com.android.build.OutputFile
+
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -75,6 +77,7 @@ apply plugin: 'com.google.gms.google-services'
  *   extraPackagerArgs: []
  * ]
  */
+
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
 ]
@@ -127,12 +130,14 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
+
     defaultConfig {
-        applicationId "com.brudcustomer"
+        applicationId "com.brudrestaurant"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
     splits {
@@ -151,10 +156,6 @@ android {
             keyPassword 'android'
         }
     }
-    lint {
-        checkReleaseBuilds false
-    }
-    namespace 'com.brudcustomer'
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -173,12 +174,6 @@ android {
         }
     }
 
-    packagingOptions {
-        pickFirst '**/libc++_shared.so'
-        pickFirst '**/libfbjni.so'
-        pickFirst '**/libjsc.so'
-    }
-
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -186,15 +181,14 @@ android {
             // https://developer.android.com/studio/build/configure-apk-splits.html
             // Example: versionCode 1 will generate 1001 for armeabi-v7a, 1002 for x86, etc.
             def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
-//            def abi = output.getFilter(OutputFile.ABI)
-//            if (abi != null) {  // null for the universal-debug, universal-release variants
-//                output.versionCodeOverride =
-//                        defaultConfig.versionCode * 1000 + versionCodes.get(abi)
-//            }
+            def abi = output.getFilter(OutputFile.ABI)
+            if (abi != null) {  // null for the universal-debug, universal-release variants
+                output.versionCodeOverride =
+                        defaultConfig.versionCode * 1000 + versionCodes.get(abi)
+            }
 
         }
     }
-
     def REACT_NATIVE_VERSION = new File(['node', '--print',"JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
     allprojects {
         configurations.all {
@@ -210,11 +204,10 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation platform('com.google.firebase:firebase-bom:29.2.1')
-    implementation 'com.google.firebase:firebase-analytics'
+implementation platform('com.google.firebase:firebase-bom:29.2.1')
+implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.facebook.soloader:soloader:0.10.4+'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-implementation "com.squareup.sdk.in-app-payments:card-entry:1.5.3"
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }
@@ -235,7 +228,6 @@ implementation "com.squareup.sdk.in-app-payments:card-entry:1.5.3"
     } else {
         implementation jscFlavor
     }
-
 }
 
 // Run this once to be able to run the application with BUCK

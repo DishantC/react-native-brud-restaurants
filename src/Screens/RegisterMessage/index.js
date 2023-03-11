@@ -1,11 +1,11 @@
-import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import styles from "./styles";
-import { PX } from "../../Components/Pixel/index";
-import success from "../../Assets/success.png";
-import Success from "../../Assets/SVG/success";
+import React from 'react';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import styles from './styles';
+import {PX} from '../../Components/Pixel/index';
+import success from '../../Assets/success.png';
+import Success from '../../Assets/SVG/success';
 
-export const RegisterMessage = ({ navigation, route }) => {
+export const RegisterMessage = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       <Success size={200} />
@@ -13,8 +13,7 @@ export const RegisterMessage = ({ navigation, route }) => {
       <Text style={styles.msgText1}>Successfully !</Text>
       <TouchableOpacity
         style={styles.buttonStyle}
-        onPress={() => navigation.replace("MainStack")}
-      >
+        onPress={() => navigation.replace('MainStack')}>
         <Text style={styles.buttonText}>Done</Text>
       </TouchableOpacity>
     </View>

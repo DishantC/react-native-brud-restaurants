@@ -1,8 +1,8 @@
-import React from "react";
-import { Image } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from 'react';
+import {Image} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   HomeScreen,
   SettingScreen,
@@ -26,14 +26,15 @@ import {
   ModifierSuccess,
   ForgotPassword,
   EditProfileModal,
-} from "../Screens";
-import card from "../Assets/card.png";
-import foodMenu from "../Assets/food-menu.png";
-import home from "../Assets/home.png";
-import cafe from "../Assets/cafe.png";
-import main from "../Assets/main.png";
-import settings from "../Assets/settings.png";
-import { PX } from "../Components/Pixel/index";
+} from '../Screens';
+import card from '../Assets/card.png';
+import foodMenu from '../Assets/food-menu.png';
+import home from '../Assets/home.png';
+import cafe from '../Assets/cafe.png';
+import main from '../Assets/main.png';
+import settings from '../Assets/settings.png';
+import {PX} from '../Components/Pixel/index';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,15 +44,14 @@ const HomeStack = () => {
     <Stack.Navigator
       initialRouteName="HomeScreen"
       screenOptions={{
-        headerStyle: { backgroundColor: "#42f44b" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" },
-      }}
-    >
+        headerStyle: {backgroundColor: '#42f44b'},
+        headerTintColor: '#fff',
+        headerTitleStyle: {fontWeight: 'bold'},
+      }}>
       <Stack.Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -62,15 +62,14 @@ const CustomerStack = () => {
     <Stack.Navigator
       initialRouteName="EditProfileModal"
       screenOptions={{
-        headerStyle: { backgroundColor: "#42f44b" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" },
-      }}
-    >
+        headerStyle: {backgroundColor: '#42f44b'},
+        headerTintColor: '#fff',
+        headerTitleStyle: {fontWeight: 'bold'},
+      }}>
       <Stack.Screen
         name="EditProfileModal"
         component={EditProfileModal}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -81,15 +80,14 @@ const NotificationStack = () => {
     <Stack.Navigator
       initialRouteName="NotificationScreen"
       screenOptions={{
-        headerStyle: { backgroundColor: "#42f44b" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" },
-      }}
-    >
+        headerStyle: {backgroundColor: '#42f44b'},
+        headerTintColor: '#fff',
+        headerTitleStyle: {fontWeight: 'bold'},
+      }}>
       <Stack.Screen
         name="NotificationScreen"
         component={NotificationScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -97,43 +95,42 @@ const NotificationStack = () => {
 
 const ProfileStack = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="ProfileScreen"
-      screenOptions={{
-        headerStyle: { backgroundColor: "#42f44b" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" },
-      }}
+    <Stack.Navigator initialRouteName="ProfileScreen"
+    screenOptions={{
+      headerStyle: {backgroundColor: '#42f44b'},
+      headerTintColor: '#fff',
+      headerTitleStyle: {fontWeight: 'bold'},
+    }}
     >
       <Stack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="AddItem"
         component={AddItem}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="ItemSuccess"
         component={ItemSuccess}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="ModifierList"
         component={ModifierList}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="AddModifier"
         component={AddModifier}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="ModifierSuccess"
         component={ModifierSuccess}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -145,7 +142,7 @@ const SettingsStack = () => {
       <Stack.Screen
         name="SettingScreen"
         component={SettingScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -154,23 +151,23 @@ const SettingsStack = () => {
 const TabStack = () => {
   return (
     <Tab.Navigator
-      initialRouteName={"Home"}
+      initialRouteName={'Home'}
       tabBarOptions={{
         keyboardHidesTabBar: false,
         style: {
-          position: "absolute",
+          position: 'absolute',
         },
       }}
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          position: "absolute",
+          position: 'absolute',
           height: 90,
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
-          shadowColor: "#000",
-          alignItems: "center",
-          justifyContent: "center",
+          shadowColor: '#000',
+          alignItems:'center',
+          justifyContent:"center",
           shadowOffset: {
             width: 0,
             height: 2,
@@ -178,26 +175,25 @@ const TabStack = () => {
           shadowOpacity: 0.25,
           shadowRadius: 3.84,
           tabBarLabelStyle: {
-            bottom: 20,
-          },
+              bottom:20
+            },
           elevation: 5,
-          paddingBottom: PX(20),
+          paddingBottom:PX(20)
         },
-      }}
-    >
+      }}>
       <Tab.Screen
         name="Setting"
         component={CustomerStack}
-        screenOptions={{ headerShown: false }}
+        screenOptions={{headerShown: false}}
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({color, size, focused}) => (
             <Image
               style={{
                 width: PX(25),
                 height: PX(25),
-                resizeMode: "contain",
-                marginTop: PX(10),
-                tintColor: focused ? "#F55800" : "#2D2D2D",
+                resizeMode: 'contain',
+                marginTop:PX(10),
+                tintColor: focused ? '#F55800' : '#2D2D2D',
               }}
               source={settings}
             />
@@ -207,16 +203,16 @@ const TabStack = () => {
       <Tab.Screen
         name="Earnings"
         component={NotificationStack}
-        screenOptions={{ headerShown: false }}
+        screenOptions={{headerShown: false}}
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({color, size, focused}) => (
             <Image
               style={{
                 width: PX(25),
                 height: PX(25),
-                resizeMode: "contain",
-                tintColor: focused ? "#F55800" : "#2D2D2D",
-                marginTop: PX(10),
+                resizeMode: 'contain',
+                tintColor: focused ? '#F55800' : '#2D2D2D',
+                marginTop:PX(10)
               }}
               source={card}
             />
@@ -226,16 +222,16 @@ const TabStack = () => {
       <Tab.Screen
         name="Home"
         component={HomeStack}
-        screenOptions={{ headerShown: false }}
+        screenOptions={{headerShown: false}}
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({color, size, focused}) => (
             <Image
               style={{
                 width: PX(25),
                 height: PX(25),
-                resizeMode: "contain",
-                tintColor: focused ? "#F55800" : "#2D2D2D",
-                marginTop: PX(10),
+                resizeMode: 'contain',
+                tintColor: focused ? '#F55800' : '#2D2D2D',
+                marginTop:PX(10)
               }}
               source={home}
             />
@@ -245,16 +241,16 @@ const TabStack = () => {
       <Tab.Screen
         name="Orders"
         component={SettingsStack}
-        screenOptions={{ headerShown: false }}
+        screenOptions={{headerShown: false}}
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({color, size, focused}) => (
             <Image
               style={{
                 width: PX(25),
                 height: PX(25),
-                resizeMode: "contain",
-                tintColor: focused ? "#F55800" : "#2D2D2D",
-                marginTop: PX(10),
+                resizeMode: 'contain',
+                tintColor: focused ? '#F55800' : '#2D2D2D',
+                marginTop:PX(10)
               }}
               source={cafe}
             />
@@ -264,16 +260,16 @@ const TabStack = () => {
       <Tab.Screen
         name="Menu"
         component={ProfileStack}
-        screenOptions={{ headerShown: false }}
+        screenOptions={{headerShown: false}}
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({color, size, focused}) => (
             <Image
               style={{
                 width: PX(25),
                 height: PX(25),
-                resizeMode: "contain",
-                tintColor: focused ? "#F55800" : "#2D2D2D",
-                marginTop: PX(10),
+                resizeMode: 'contain',
+                tintColor: focused ? '#F55800' : '#2D2D2D',
+                marginTop:PX(10)
               }}
               source={foodMenu}
             />
@@ -289,15 +285,14 @@ const MainStack = () => {
     <Stack.Navigator
       initialRouteName="TabStack"
       screenOptions={{
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" },
+        headerTintColor: '#fff',
+        headerTitleStyle: {fontWeight: 'bold'},
         headerShown: false,
-      }}
-    >
+      }}>
       <Stack.Screen
         name="TabStack"
         component={TabStack}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       {/* <Stack.Screen
           name="BarcodeScanner"
@@ -313,65 +308,64 @@ const AuthStack = () => {
     <Stack.Navigator
       initialRouteName="SplashScreen"
       screenOptions={{
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" },
+        headerTintColor: '#fff',
+        headerTitleStyle: {fontWeight: 'bold'},
         headerShown: false,
-      }}
-    >
+      }}>
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="RegisterScreen"
         component={RegisterScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="ResetPassword"
         component={ResetPassword}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="ResetMessage"
         component={ResetMessage}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="OTPScreen"
         component={OTPScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="EmailLoginScreen"
         component={EmailLoginScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="UpdateSuccess"
         component={UpdateSuccess}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="CreatePassword"
         component={CreatePassword}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="RegisterMessage"
         component={RegisterMessage}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
-      <Stack.Screen
+       <Stack.Screen
         name="ForgotPassword"
         component={ForgotPassword}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -381,33 +375,32 @@ const navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={"AuthStack"}
+        initialRouteName={'AuthStack'}
         screenOptions={{
-          headerStyle: { backgroundColor: "#42f44b" },
-          headerTintColor: "#fff",
-          headerTitleStyle: { fontWeight: "bold" },
-        }}
-      >
+          headerStyle: {backgroundColor: '#42f44b'},
+          headerTintColor: '#fff',
+          headerTitleStyle: {fontWeight: 'bold'},
+        }}>
         <Stack.Screen
           name="AuthStack"
           component={AuthStack}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="MainStack"
           component={MainStack}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
-        {/* <Stack.Screen
+         {/* <Stack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={{headerShown: false}}
       /> */}
-        <Stack.Screen
-          name="AddCustomer"
-          component={AddCustomer}
-          options={{ headerShown: false }}
-        />
+         <Stack.Screen
+        name="AddCustomer"
+        component={AddCustomer}
+        options={{headerShown: false}}
+      />
       </Stack.Navigator>
     </NavigationContainer>
   );

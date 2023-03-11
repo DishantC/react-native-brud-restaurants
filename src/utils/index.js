@@ -1,4 +1,4 @@
 // import AppTheme from "./color";
-import Fonts from "./fontFamily";
+import Fonts from './fontFamily';
 
-export { Fonts };
+export {Fonts};

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,41 +7,37 @@ import {
   TouchableOpacity,
   Modal,
   FlatList,
-} from "react-native";
-import styles from "./styles";
-import { PX } from "../../Components/Pixel/index";
-import deleted from "../../Assets/delete.png";
-import { Fonts } from "../../utils";
-import { hasNotch } from "react-native-device-info";
-import backArrow from "../../Assets/backArrow.png";
-import DeletePopup from "../../Components/DeletePopup";
-import {
-  GetModifier,
-  GetItemModifier,
-  DeleteModifier,
-} from "../../services/Api";
+} from 'react-native';
+import styles from './styles';
+import {PX} from '../../Components/Pixel/index';
+import deleted from '../../Assets/delete.png';
+import {Fonts} from '../../utils';
+import {hasNotch} from 'react-native-device-info';
+import backArrow from '../../Assets/backArrow.png';
+import DeletePopup from '../../Components/DeletePopup';
+import {GetModifier, GetItemModifier, DeleteModifier} from '../../services/Api';
 
-export const ModifierList = ({ navigation, route }) => {
+export const ModifierList = ({navigation, route}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modifierData, setModifierData] = useState([]);
-  const [modifierId, setModifierId] = useState("");
+  const [modifierId, setModifierId] = useState('');
 
   useEffect(() => {
-    const subscribe = navigation.addListener("focus", () => {
+    const subscribe = navigation.addListener('focus', () => {
       GetItemDetails(route.params.itemId);
     });
   }, []);
 
-  const GetItemDetails = async (id) => {
+  const GetItemDetails = async id => {
     const item_id = encodeURIComponent(id);
     const requestBody = `item_id=${item_id}`;
     const response = await GetItemModifier(requestBody);
 
-    console.log("Get Items::", response);
+    console.log('Get Items::', response);
     setModifierData(response.data);
   };
 
-  const deleteModifier = async (id) => {
+  const deleteModifier = async id => {
     const modifier_id = encodeURIComponent(id);
     const requestBody = `modifier_id=${modifier_id}`;
     const response = await DeleteModifier(requestBody);
@@ -51,7 +47,7 @@ export const ModifierList = ({ navigation, route }) => {
       alert(response.message);
     } else {
       setModalVisible(false);
-      alert("Something is Wrong.");
+      alert('Something is Wrong.');
     }
     GetItemDetails(route.params.itemId);
   };
@@ -61,29 +57,28 @@ export const ModifierList = ({ navigation, route }) => {
       <View
         style={{
           height: hasNotch() ? PX(35) : PX(10),
-          backgroundColor: "#000",
+          backgroundColor: '#000',
         }}
       />
       <View
         style={{
           flex: 1,
-          alignItems: "center",
-          justifyContent: "space-between",
+          alignItems: 'center',
+          justifyContent: 'space-between',
           paddingHorizontal: PX(20),
           marginBottom: PX(130),
-        }}
-      >
+        }}>
         <View style={[styles.headerView]}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
-              style={{ height: PX(20), width: PX(20), resizeMode: "contain" }}
+              style={{height: PX(20), width: PX(20), resizeMode: 'contain'}}
               source={backArrow}
             />
           </TouchableOpacity>
 
           <Text style={styles.headerText}>Modifier</Text>
           <Image
-            style={{ height: PX(20), width: PX(20), resizeMode: "contain" }}
+            style={{height: PX(20), width: PX(20), resizeMode: 'contain'}}
           />
         </View>
 
@@ -91,34 +86,31 @@ export const ModifierList = ({ navigation, route }) => {
           data={modifierData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={(item, index) => {
-            console.log("Get Data:::::::::", item);
+            console.log('Get Data:::::::::', item);
             return (
               <View
                 style={{
-                  width: "100%",
+                  width: '100%',
                   paddingTop: PX(40),
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
                 <View
                   style={{
-                    width: "60%",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    width: '60%',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                     height: PX(40),
                     paddingHorizontal: PX(10),
-                  }}
-                >
+                  }}>
                   <Text
                     style={{
-                      color: "#2D2D2D",
+                      color: '#2D2D2D',
                       fontSize: PX(14),
                       fontFamily: Fonts.FONTS.MontserratMedium,
-                    }}
-                  >
+                    }}>
                     {item?.item?.group_name}
                   </Text>
                   {/* <Image
@@ -133,12 +125,11 @@ export const ModifierList = ({ navigation, route }) => {
                 <TouchableOpacity
                   style={styles.changeButton}
                   onPress={() =>
-                    navigation.navigate("AddModifier", {
+                    navigation.navigate('AddModifier', {
                       items: item,
-                      from: "edit",
+                      from: 'edit',
                     })
-                  }
-                >
+                  }>
                   <Text style={styles.changeText}>Edit</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -147,13 +138,12 @@ export const ModifierList = ({ navigation, route }) => {
                   onPress={() => {
                     setModifierId(item.item.id);
                     setModalVisible(true);
-                  }}
-                >
+                  }}>
                   <Image
                     style={{
                       width: PX(25),
                       height: PX(25),
-                      resizeMode: "contain",
+                      resizeMode: 'contain',
                     }}
                     source={deleted}
                   />
@@ -314,9 +304,8 @@ export const ModifierList = ({ navigation, route }) => {
         <TouchableOpacity
           style={styles.buttonStyle}
           onPress={() =>
-            navigation.navigate("AddModifier", { itemId: route.params.itemId })
-          }
-        >
+            navigation.navigate('AddModifier', {itemId: route.params.itemId})
+          }>
           <Text style={styles.buttonText}>Add New Modifier</Text>
         </TouchableOpacity>
       </View>
@@ -328,7 +317,7 @@ export const ModifierList = ({ navigation, route }) => {
             setModalVisible(false);
           }}
           deleteOnPress={() => deleteModifier(modifierId)}
-          text={"Are you sure you want to delete\nmodifier group permanently ?"}
+          text={'Are you sure you want to delete\nmodifier group permanently ?'}
         />
       )}
     </View>

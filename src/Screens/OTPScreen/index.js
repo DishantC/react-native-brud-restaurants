@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useEffect} from 'react';
 import {
   StyleSheet,
   Image,
@@ -6,27 +6,27 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-} from "react-native";
-import styles from "./styles";
-import { PX } from "../../Components/Pixel/index";
-import { hasNotch } from "react-native-device-info";
-import logo from "../../Assets/logo1.png";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+} from 'react-native';
+import styles from './styles';
+import {PX} from '../../Components/Pixel/index';
+import {hasNotch} from 'react-native-device-info';
+import logo from '../../Assets/logo1.png';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   CodeField,
   Cursor,
   useBlurOnFulfill,
   useClearByFocusCell,
   isLastFilledCell,
-} from "react-native-confirmation-code-field";
-import { VerifyOTPApi, ResendOTPApi } from "../../services/Api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Loader } from "../../Components/Loader";
+} from 'react-native-confirmation-code-field';
+import {VerifyOTPApi, ResendOTPApi} from '../../services/Api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Loader} from '../../Components/Loader';
 
-export const OTPScreen = ({ navigation, route }) => {
+export const OTPScreen = ({navigation, route}) => {
   const inputCodeRef = useRef(null);
-  const [email, setEmail] = useState("");
-  const [value, setValue] = useState("");
+  const [email, setEmail] = useState('');
+  const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [inputCodeProps, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -40,7 +40,7 @@ export const OTPScreen = ({ navigation, route }) => {
 
     const requestBody = `id=${id}&otp=${otp}`;
     const res = await VerifyOTPApi(requestBody);
-    console.log("Get Api Response:::", res);
+    console.log('Get Api Response:::', res);
     if (!res.sucecess) {
       setLoading(false);
       alert(res.message);
@@ -48,11 +48,11 @@ export const OTPScreen = ({ navigation, route }) => {
       setLoading(false);
       // alert(res.message)
 
-      if (route.params?.from == "forgot") {
-        navigation.navigate("ResetPassword", { id: route.params?.id });
+      if (route.params?.from == 'forgot') {
+        navigation.navigate('ResetPassword', {id: route.params?.id});
       } else {
-        AsyncStorage.setItem("id", route.params?.id);
-        navigation.navigate("CreatePassword", { id: route.params?.id });
+        AsyncStorage.setItem('id', route.params?.id);
+        navigation.navigate('CreatePassword', {id: route.params?.id});
       }
     }
     //  navigation.navigate('CreatePassword');
@@ -63,7 +63,7 @@ export const OTPScreen = ({ navigation, route }) => {
     const id = encodeURIComponent(route.params?.id);
     const requestBody = `id=${id}`;
     const response = await ResendOTPApi(requestBody);
-    console.log("Get Api Response:::", response);
+    console.log('Get Api Response:::', response);
     if (!response.sucecess) {
       setLoading(false);
       alert(response.message);
@@ -79,7 +79,7 @@ export const OTPScreen = ({ navigation, route }) => {
       <View
         style={{
           height: hasNotch() ? PX(35) : PX(10),
-          backgroundColor: "#000",
+          backgroundColor: '#000',
         }}
       />
       <Loader isLoding={loading} />
@@ -95,9 +95,7 @@ export const OTPScreen = ({ navigation, route }) => {
           </Text>
         </View>
 
-        <View
-          style={{ width: "100%", alignItems: "center", paddingTop: PX(50) }}
-        >
+        <View style={{width: '100%', alignItems: 'center', paddingTop: PX(50)}}>
           <View style={styles.email}>
             <Text style={styles.text}>your 4 digit OTP</Text>
             <View style={styles.email1}>
@@ -115,20 +113,18 @@ export const OTPScreen = ({ navigation, route }) => {
                 rootStyle={styles.codeFieldRoot}
                 keyboardType="number-pad"
                 textContentType="oneTimeCode"
-                renderCell={({ index, symbol, isFocused }) => (
+                renderCell={({index, symbol, isFocused}) => (
                   <View
                     style={[
                       styles.optTextView,
                       {
-                        borderBottomColor: isFocused ? "#F55800" : "#848484",
+                        borderBottomColor: isFocused ? '#F55800' : '#848484',
                       },
-                    ]}
-                  >
+                    ]}>
                     <Text
                       key={index}
                       style={[styles.cell, isFocused && styles.focusCell]}
-                      onLayout={getCellOnLayoutHandler(index)}
-                    >
+                      onLayout={getCellOnLayoutHandler(index)}>
                       {symbol || (isFocused ? <Cursor /> : null)}
                     </Text>
                   </View>
@@ -144,9 +140,8 @@ export const OTPScreen = ({ navigation, route }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={{ marginTop: PX(25) }}
-            onPress={() => resendOtp()}
-          >
+            style={{marginTop: PX(25)}}
+            onPress={() => resendOtp()}>
             <Text style={styles.ResetText}>RESEND</Text>
           </TouchableOpacity>
         </View>

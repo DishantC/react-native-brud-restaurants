@@ -1,22 +1,20 @@
-import * as React from "react";
-import Svg, { Path, Defs, Pattern, Use, Image } from "react-native-svg";
+import * as React from 'react';
+import Svg, {Path, Defs, Pattern, Use, Image} from 'react-native-svg';
 
-const Success = ({ size }) => (
+const Success = ({size}) => (
   <Svg
     width={size}
     height={size}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-  >
+    xmlnsXlink="http://www.w3.org/1999/xlink">
     <Path fill="url(#a)" d="M0 0h200v200H0z" />
     <Defs>
       <Pattern
         id="a"
         patternContentUnits="objectBoundingBox"
         width={1}
-        height={1}
-      >
+        height={1}>
         <Use xlinkHref="#b" transform="scale(.001)" />
       </Pattern>
       <Image

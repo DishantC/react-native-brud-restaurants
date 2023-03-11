@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,310 +12,310 @@ import {
   Alert,
   Modal,
   Keyboard,
-} from "react-native";
-import { PX } from "../../Components/Pixel/index";
-import { hasNotch } from "react-native-device-info";
-import styles from "./styles";
-import logo from "../../Assets/logo1.png";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import firstStep from "../../Assets/shop-outline.png";
-import uploadBanner from "../../Assets/uploadbanner.png";
-import open from "../../Assets/open.png";
-import CountryPicker, { DARK_THEME } from "react-native-country-picker-modal";
-import backArrow from "../../Assets/backArrow.png";
-import calendar from "../../Assets/calendar.png";
-import { SetupCafeApi, UploadImage, TimeData } from "../../services/Api";
-import { Loader } from "../../Components/Loader";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
-import GetLocation from "react-native-get-location";
-import MapView, { Marker } from "react-native-maps";
-import ImagePopup from "../../Components/ImagePopup";
-import TimePopup from "../../Components/TimePopup";
-import { ScrollView } from "react-native-gesture-handler";
-import MapboxGL from "@react-native-mapbox-gl/maps";
-import map from "../../Assets/map.png";
-import { Fonts } from "../../utils";
-import ImagePicker from "react-native-image-crop-picker";
-import downArrow from "../../Assets/downArrow.png";
-import DropDownPicker from "react-native-dropdown-picker";
-import search from "../../Assets/search.png";
-import addressMap from "../../Assets/addressMap.png";
+} from 'react-native';
+import {PX} from '../../Components/Pixel/index';
+import {hasNotch} from 'react-native-device-info';
+import styles from './styles';
+import logo from '../../Assets/logo1.png';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import firstStep from '../../Assets/shop-outline.png';
+import uploadBanner from '../../Assets/uploadbanner.png';
+import open from '../../Assets/open.png';
+import CountryPicker, {DARK_THEME} from 'react-native-country-picker-modal';
+import backArrow from '../../Assets/backArrow.png';
+import calendar from '../../Assets/calendar.png';
+import {SetupCafeApi, UploadImage, TimeData} from '../../services/Api';
+import {Loader} from '../../Components/Loader';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import GetLocation from 'react-native-get-location';
+import MapView, {Marker} from 'react-native-maps';
+import ImagePopup from '../../Components/ImagePopup';
+import TimePopup from '../../Components/TimePopup';
+import {ScrollView} from 'react-native-gesture-handler';
+import MapboxGL from '@react-native-mapbox-gl/maps';
+import map from '../../Assets/map.png';
+import {Fonts} from '../../utils';
+import ImagePicker from 'react-native-image-crop-picker';
+import downArrow from '../../Assets/downArrow.png';
+import DropDownPicker from 'react-native-dropdown-picker';
+import search from '../../Assets/search.png';
+import addressMap from '../../Assets/addressMap.png';
 
 const Array1 = [
   {
-    name: "Sunday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Sunday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Monday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Monday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Tuesday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Tuesday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Wednesday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Wednesday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Thursday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Thursday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Friday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Friday',
+    time: '',
+    start: '',
+    end: '',
   },
   {
-    name: "Saturday",
-    time: "",
-    start: "",
-    end: "",
+    name: 'Saturday',
+    time: '',
+    start: '',
+    end: '',
   },
 ];
 
 let data = [
   {
-    label: "Alabama",
-    value: "Alabama",
+    label: 'Alabama',
+    value: 'Alabama',
   },
   {
-    label: "Alaska",
-    value: "Alaska",
+    label: 'Alaska',
+    value: 'Alaska',
   },
   {
-    label: "Arizona",
-    value: "Arizona",
+    label: 'Arizona',
+    value: 'Arizona',
   },
   {
-    label: "Arkansas",
-    value: "Arkansas",
+    label: 'Arkansas',
+    value: 'Arkansas',
   },
   {
-    label: "California",
-    value: "California",
+    label: 'California',
+    value: 'California',
   },
   {
-    label: "Colorado",
-    value: "Colorado",
+    label: 'Colorado',
+    value: 'Colorado',
   },
   {
-    label: "Connecticut",
-    value: "Connecticut",
+    label: 'Connecticut',
+    value: 'Connecticut',
   },
   {
-    label: "Delaware",
-    value: "Delaware",
+    label: 'Delaware',
+    value: 'Delaware',
   },
   {
-    label: "Florida",
-    value: "Florida",
+    label: 'Florida',
+    value: 'Florida',
   },
   {
-    label: "Georgia",
-    value: "Georgia",
+    label: 'Georgia',
+    value: 'Georgia',
   },
   {
-    label: "Hawaii",
-    value: "Hawaii",
+    label: 'Hawaii',
+    value: 'Hawaii',
   },
   {
-    label: "Idaho",
-    value: "Idaho",
+    label: 'Idaho',
+    value: 'Idaho',
   },
   {
-    label: "Illinois",
-    value: "Illinois",
+    label: 'Illinois',
+    value: 'Illinois',
   },
   {
-    label: "Indiana",
-    value: "Indiana",
+    label: 'Indiana',
+    value: 'Indiana',
   },
   {
-    label: "Iowa",
-    value: "Iowa",
+    label: 'Iowa',
+    value: 'Iowa',
   },
   {
-    label: "Kansas",
-    value: "Kansas",
+    label: 'Kansas',
+    value: 'Kansas',
   },
   {
-    label: "Kentucky[D]",
-    value: "Kentucky[D]",
+    label: 'Kentucky[D]',
+    value: 'Kentucky[D]',
   },
   {
-    label: "Louisiana",
-    value: "Louisiana",
+    label: 'Louisiana',
+    value: 'Louisiana',
   },
   {
-    label: "Maine",
-    value: "Maine",
+    label: 'Maine',
+    value: 'Maine',
   },
   {
-    label: "Maryland",
-    value: "Maryland",
+    label: 'Maryland',
+    value: 'Maryland',
   },
   {
-    label: "Massachusetts",
-    value: "Massachusetts[D]",
+    label: 'Massachusetts',
+    value: 'Massachusetts[D]',
   },
   {
-    label: "Michigan",
-    value: "Michigan",
+    label: 'Michigan',
+    value: 'Michigan',
   },
   {
-    label: "Minnesota",
-    value: "Minnesota",
+    label: 'Minnesota',
+    value: 'Minnesota',
   },
   {
-    label: "Mississippi",
-    value: "Mississippi",
+    label: 'Mississippi',
+    value: 'Mississippi',
   },
   {
-    label: "Missouri",
-    value: "Missouri",
+    label: 'Missouri',
+    value: 'Missouri',
   },
   {
-    label: "Montana",
-    value: "Montana",
+    label: 'Montana',
+    value: 'Montana',
   },
   {
-    label: "Nebraska",
-    value: "Nebraska",
+    label: 'Nebraska',
+    value: 'Nebraska',
   },
   {
-    label: "Nevada",
-    value: "Nevada",
+    label: 'Nevada',
+    value: 'Nevada',
   },
   {
-    label: "New Hampshire",
-    value: "New Hampshire",
+    label: 'New Hampshire',
+    value: 'New Hampshire',
   },
   {
-    label: "New Jersey",
-    value: "New Jersey",
+    label: 'New Jersey',
+    value: 'New Jersey',
   },
   {
-    label: "New Mexico",
-    value: "New Mexico",
+    label: 'New Mexico',
+    value: 'New Mexico',
   },
   {
-    label: "New York",
-    value: "New York",
+    label: 'New York',
+    value: 'New York',
   },
   {
-    label: "North Carolina",
-    value: "North Carolina",
+    label: 'North Carolina',
+    value: 'North Carolina',
   },
   {
-    label: "North Dakota",
-    value: "North Dakota",
+    label: 'North Dakota',
+    value: 'North Dakota',
   },
   {
-    label: "Ohio",
-    value: "Ohio",
+    label: 'Ohio',
+    value: 'Ohio',
   },
   {
-    label: "Oklahoma",
-    value: "Oklahoma",
+    label: 'Oklahoma',
+    value: 'Oklahoma',
   },
   {
-    label: "Oregon",
-    value: "Oregon",
+    label: 'Oregon',
+    value: 'Oregon',
   },
   {
-    label: "Pennsylvania",
-    value: "Pennsylvania[D]",
+    label: 'Pennsylvania',
+    value: 'Pennsylvania[D]',
   },
   {
-    label: "Rhode Island",
-    value: "Rhode Island",
+    label: 'Rhode Island',
+    value: 'Rhode Island',
   },
   {
-    label: "South Carolina",
-    value: "South Carolina",
+    label: 'South Carolina',
+    value: 'South Carolina',
   },
   {
-    label: "South Dakota",
-    value: "South Dakota",
+    label: 'South Dakota',
+    value: 'South Dakota',
   },
   {
-    label: "Tennessee",
-    value: "Tennessee",
+    label: 'Tennessee',
+    value: 'Tennessee',
   },
   {
-    label: "Texas",
-    value: "Texas",
+    label: 'Texas',
+    value: 'Texas',
   },
   {
-    label: "Utah",
-    value: "Utah",
+    label: 'Utah',
+    value: 'Utah',
   },
   {
-    label: "Vermont",
-    value: "Vermont",
+    label: 'Vermont',
+    value: 'Vermont',
   },
   {
-    label: "Virginia",
-    value: "Virginia[D]",
+    label: 'Virginia',
+    value: 'Virginia[D]',
   },
   {
-    label: "Washington",
-    value: "Washington",
+    label: 'Washington',
+    value: 'Washington',
   },
   {
-    label: "West Virginia",
-    value: "West Virginia",
+    label: 'West Virginia',
+    value: 'West Virginia',
   },
   {
-    label: "Wisconsin",
-    value: "Wisconsin",
+    label: 'Wisconsin',
+    value: 'Wisconsin',
   },
   {
-    label: "Wyoming",
-    value: "Wyoming",
+    label: 'Wyoming',
+    value: 'Wyoming',
   },
 ];
 
 const mapBox_token =
-  "pk.eyJ1IjoiYnJ1ZHJld2FyZHMiLCJhIjoiY2wwMGYwZWduMGoyajNkbmY0ZGo2NDR5bSJ9.fBDDTBfSZ5GC8pSYyP41BQ";
+  'pk.eyJ1IjoiYnJ1ZHJld2FyZHMiLCJhIjoiY2wwMGYwZWduMGoyajNkbmY0ZGo2NDR5bSJ9.fBDDTBfSZ5GC8pSYyP41BQ';
 
-export const RegisterScreen = ({ navigation, route }) => {
+export const RegisterScreen = ({navigation, route}) => {
   const [pageIndex, setPageIndex] = useState(0);
-  const [name, setName] = useState("");
-  const [managerName, setManagerName] = useState("");
-  const [mobileNo, setMobileNo] = useState("");
-  const [countryName, setcountryName] = useState("US");
-  const [countryCode, setcountryCode] = useState("+1");
-  const [Value, setValue] = useState("");
-  const [address, setAddress] = useState("");
-  const [state, setState] = useState("Alabama");
-  const [city, setCity] = useState("");
-  const [lat, setLat] = useState("");
-  const [long, setLong] = useState("");
+  const [name, setName] = useState('');
+  const [managerName, setManagerName] = useState('');
+  const [mobileNo, setMobileNo] = useState('');
+  const [countryName, setcountryName] = useState('US');
+  const [countryCode, setcountryCode] = useState('+1');
+  const [Value, setValue] = useState('');
+  const [address, setAddress] = useState('');
+  const [state, setState] = useState('Alabama');
+  const [city, setCity] = useState('');
+  const [lat, setLat] = useState('');
+  const [long, setLong] = useState('');
   const [profile, setProfile] = useState([]);
   const [mapVisible, setMapVisible] = useState(false);
   const [imageVisible, setImageVisible] = useState(false);
   const [timeVisible, setTimeVisible] = useState(false);
   const [index, setIndex] = useState(0);
   const [timingData, setTimingData] = useState(Array1);
-  const [about, setAbout] = useState("");
+  const [about, setAbout] = useState('');
   const [images, setImages] = useState([]);
   const [bothAddress, setBothAddress] = useState([]);
   const [stateModal, setStateModal] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const [AllData, setAllData] = useState([]);
   const ref_ResName = useRef();
   const ref_managerName = useRef();
@@ -326,42 +326,42 @@ export const RegisterScreen = ({ navigation, route }) => {
 
   MapboxGL.setAccessToken(mapBox_token);
 
-  const onCountrySelect = (country) => {
+  const onCountrySelect = country => {
     setcountryName(country.cca2);
-    setcountryCode("+" + country.callingCode[0]);
+    setcountryCode('+' + country.callingCode[0]);
   };
   const [loading, setLoading] = useState(false);
 
-  const onSearch = async (test) => {
+  const onSearch = async test => {
     setSearchText(test);
     try {
       var requestOptions = {
-        method: "GET",
-        redirect: "follow",
+        method: 'GET',
+        redirect: 'follow',
       };
 
       fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${test}.json?access_token=pk.eyJ1IjoiYnJ1ZHJld2FyZHMiLCJhIjoiY2wwMGYwZWduMGoyajNkbmY0ZGo2NDR5bSJ9.fBDDTBfSZ5GC8pSYyP41BQ`,
-        requestOptions
+        requestOptions,
       )
-        .then((response) => response.json())
-        .then((result) => {
+        .then(response => response.json())
+        .then(result => {
           //       setLong(result.features[0].center[0]);
           // setLat(result.features[0].center[1]);
           // result.features[0].center[0]
           setAllData(result.features);
-          console.log("Get Error::", result.features[0].center[0]);
-          console.log("Get Error::", result.features[0].center[1]);
+          console.log('Get Error::', result.features[0].center[0]);
+          console.log('Get Error::', result.features[0].center[1]);
         })
-        .catch((error) => console.log("error", error));
+        .catch(error => console.log('error', error));
     } catch (err) {
-      console.log("Get Error::", err);
+      console.log('Get Error::', err);
     }
   };
 
   useEffect(() => {
     // dataGet()
-    const subscribe = navigation.addListener("focus", () => {
+    const subscribe = navigation.addListener('focus', () => {
       getCurrentLocation();
     });
   }, []);
@@ -370,34 +370,34 @@ export const RegisterScreen = ({ navigation, route }) => {
       enableHighAccuracy: true,
       timeout: 15000,
     })
-      .then((location) => {
-        console.log("get address", location.longitude);
+      .then(location => {
+        console.log('get address', location.longitude);
         setBothAddress([location.longitude, location.latitude]);
         setLat(location.latitude);
         setLong(location.longitude);
         getFullAddress(location.latitude, location.longitude);
       })
-      .catch((error) => {
-        const { code, message } = error;
+      .catch(error => {
+        const {code, message} = error;
         console.warn(code, message);
       });
   };
 
   const getFullAddress = async (long, lat) => {
     var requestOptions = {
-      method: "GET",
-      redirect: "follow",
+      method: 'GET',
+      redirect: 'follow',
     };
 
     fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/Market%20Street%20and%20Fremont%20Street.json?types=address&proximity=${parseFloat(
-        long
+        long,
       )},${parseFloat(lat)}&access_token=${mapBox_token}`,
-      requestOptions
+      requestOptions,
     )
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   };
 
   const setupCafe = async () => {
@@ -411,7 +411,7 @@ export const RegisterScreen = ({ navigation, route }) => {
       let fri = [];
       let sat = [];
 
-      if (timingData[0].time == "custom") {
+      if (timingData[0].time == 'custom') {
         sun = [
           {
             time: timingData[0].time,
@@ -420,10 +420,10 @@ export const RegisterScreen = ({ navigation, route }) => {
           },
         ];
       } else {
-        sun = [{ time: timingData[0].time }];
+        sun = [{time: timingData[0].time}];
       }
 
-      if (timingData[1].time == "custom") {
+      if (timingData[1].time == 'custom') {
         mon = [
           {
             time: timingData[1].time,
@@ -432,10 +432,10 @@ export const RegisterScreen = ({ navigation, route }) => {
           },
         ];
       } else {
-        mon = [{ time: timingData[1].time }];
+        mon = [{time: timingData[1].time}];
       }
 
-      if (timingData[2].time == "custom") {
+      if (timingData[2].time == 'custom') {
         tue = [
           {
             time: timingData[2].time,
@@ -444,10 +444,10 @@ export const RegisterScreen = ({ navigation, route }) => {
           },
         ];
       } else {
-        tue = [{ time: timingData[2].time }];
+        tue = [{time: timingData[2].time}];
       }
 
-      if (timingData[3].time == "custom") {
+      if (timingData[3].time == 'custom') {
         wed = [
           {
             time: timingData[3].time,
@@ -456,10 +456,10 @@ export const RegisterScreen = ({ navigation, route }) => {
           },
         ];
       } else {
-        wed = [{ time: timingData[3].time }];
+        wed = [{time: timingData[3].time}];
       }
 
-      if (timingData[4].time == "custom") {
+      if (timingData[4].time == 'custom') {
         thus = [
           {
             time: timingData[4].time,
@@ -468,10 +468,10 @@ export const RegisterScreen = ({ navigation, route }) => {
           },
         ];
       } else {
-        thus = [{ time: timingData[4].time }];
+        thus = [{time: timingData[4].time}];
       }
 
-      if (timingData[5].time == "custom") {
+      if (timingData[5].time == 'custom') {
         fri = [
           {
             time: timingData[5].time,
@@ -480,10 +480,10 @@ export const RegisterScreen = ({ navigation, route }) => {
           },
         ];
       } else {
-        fri = [{ time: timingData[5].time }];
+        fri = [{time: timingData[5].time}];
       }
 
-      if (timingData[6].time == "custom") {
+      if (timingData[6].time == 'custom') {
         sat = [
           {
             time: timingData[6].time,
@@ -492,7 +492,7 @@ export const RegisterScreen = ({ navigation, route }) => {
           },
         ];
       } else {
-        sat = [{ time: timingData[6].time }];
+        sat = [{time: timingData[6].time}];
       }
 
       const id = encodeURIComponent(route.params.id);
@@ -505,13 +505,13 @@ export const RegisterScreen = ({ navigation, route }) => {
       const saturday = encodeURIComponent(JSON.stringify(sat));
 
       const request = `id=${id}&sunday=${sunday}&monday=${monday}&tuesday=${tuesday}&wednesday=${wednesday}&thursday=${thursday}&friday=${friday}&saturday=${saturday}`;
-      console.log("Sunday>>>>>>>", id);
+      console.log('Sunday>>>>>>>', id);
 
       const responses = await TimeData(request);
-      console.log("Get Response::", responses);
+      console.log('Get Response::', responses);
 
       var formdata = new FormData();
-      formdata.append("image", {
+      formdata.append('image', {
         name: profile[0]?.fileName,
         uri: profile[0]?.uri,
         type: profile[0]?.type,
@@ -523,9 +523,9 @@ export const RegisterScreen = ({ navigation, route }) => {
       images?.map((item, index) => {
         arrayImage.push(item.fileName);
       });
-      let num = Value.replace("-", "");
-      let num2 = num.replace("-", "");
-      console.log("Get Numbers:::", num2);
+      let num = Value.replace('-', '');
+      let num2 = num.replace('-', '');
+      console.log('Get Numbers:::', num2);
       // const id = encodeURIComponent(route.params.id);
       const restaurant_name = encodeURIComponent(name);
       const manager_name = encodeURIComponent(managerName);
@@ -542,45 +542,45 @@ export const RegisterScreen = ({ navigation, route }) => {
       const requestBody = `id=${id}&restaurant_name=${restaurant_name}&manager_name=${manager_name}&country_code=${country_code}&phone_number=${phone_number}&full_address=${full_address}&city=${City}&state=${State}&lattitude=${lattitude}&longitude=${longitude}&image=${image}&about=${abouts}&images=${images1}`;
 
       const res = await SetupCafeApi(requestBody);
-      console.log("Get Response::", res);
+      console.log('Get Response::', res);
       if (!res.sucecess) {
         setLoading(false);
         alert(res.message);
       } else {
         setLoading(false);
         // alert(res.message)
-        navigation.navigate("RegisterMessage");
+        navigation.navigate('RegisterMessage');
       }
     } catch (err) {
       setLoading(false);
-      console.log("Get Error:::", err);
+      console.log('Get Error:::', err);
     }
   };
 
   const selectFile = async () => {
-    if (Platform.OS == "ios") {
+    if (Platform.OS == 'ios') {
       let options = {
-        mediaType: "photo",
+        mediaType: 'photo',
         maxWidth: 300,
         maxHeight: 550,
         quality: 1,
       };
-      launchImageLibrary(options, (response) => {
-        console.log("Response = ", response);
+      launchImageLibrary(options, response => {
+        console.log('Response = ', response);
         setLoading(true);
         if (response.didCancel) {
-          alert("User cancelled camera picker");
+          alert('User cancelled camera picker');
           setLoading(false);
           return;
-        } else if (response.errorCode == "camera_unavailable") {
-          alert("Camera not available on device");
+        } else if (response.errorCode == 'camera_unavailable') {
+          alert('Camera not available on device');
           setLoading(false);
           return;
-        } else if (response.errorCode == "permission") {
-          alert("Permission not satisfied");
+        } else if (response.errorCode == 'permission') {
+          alert('Permission not satisfied');
           setLoading(false);
           return;
-        } else if (response.errorCode == "others") {
+        } else if (response.errorCode == 'others') {
           alert(response.errorMessage);
           setLoading(false);
           return;
@@ -595,9 +595,9 @@ export const RegisterScreen = ({ navigation, route }) => {
           width: 300,
           height: 400,
           cropping: true,
-        }).then((image) => {
+        }).then(image => {
           console.log(image);
-          var filename = image.path.substring(image.path.lastIndexOf("/") + 1);
+          var filename = image.path.substring(image.path.lastIndexOf('/') + 1);
           // setProfile(response.data.image)
           setProfile([
             {
@@ -615,14 +615,14 @@ export const RegisterScreen = ({ navigation, route }) => {
   };
 
   const requestCameraPermission = async () => {
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.CAMERA,
           {
-            title: "Camera Permission",
-            message: "App needs camera permission",
-          }
+            title: 'Camera Permission',
+            message: 'App needs camera permission',
+          },
         );
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
@@ -634,20 +634,20 @@ export const RegisterScreen = ({ navigation, route }) => {
   };
 
   const requestExternalWritePermission = async () => {
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
-            title: "External Storage Write Permission",
-            message: "App needs write permission",
-          }
+            title: 'External Storage Write Permission',
+            message: 'App needs write permission',
+          },
         );
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
         console.warn(err);
-        alert("Write permission err", err);
+        alert('Write permission err', err);
       }
       return false;
     } else return true;
@@ -655,9 +655,9 @@ export const RegisterScreen = ({ navigation, route }) => {
 
   const takeImage = async () => {
     setImageVisible(false);
-    if (Platform.OS == "ios") {
+    if (Platform.OS == 'ios') {
       let options = {
-        mediaType: "photo",
+        mediaType: 'photo',
         maxWidth: 300,
         maxHeight: 550,
         quality: 1,
@@ -665,22 +665,22 @@ export const RegisterScreen = ({ navigation, route }) => {
       let isCameraPermitted = await requestCameraPermission();
       let isStoragePermitted = await requestExternalWritePermission();
       if (isCameraPermitted && isStoragePermitted) {
-        launchCamera(options, (response) => {
-          console.log("Response = ", response);
+        launchCamera(options, response => {
+          console.log('Response = ', response);
           setLoading(true);
           if (response.didCancel) {
-            alert("User cancelled camera picker");
+            alert('User cancelled camera picker');
             setLoading(false);
             return;
-          } else if (response.errorCode == "camera_unavailable") {
-            alert("Camera not available on device");
+          } else if (response.errorCode == 'camera_unavailable') {
+            alert('Camera not available on device');
             setLoading(false);
             return;
-          } else if (response.errorCode == "permission") {
-            alert("Permission not satisfied");
+          } else if (response.errorCode == 'permission') {
+            alert('Permission not satisfied');
             setLoading(false);
             return;
-          } else if (response.errorCode == "others") {
+          } else if (response.errorCode == 'others') {
             alert(response.errorMessage);
             setLoading(false);
             return;
@@ -697,9 +697,9 @@ export const RegisterScreen = ({ navigation, route }) => {
           width: 300,
           height: 400,
           cropping: true,
-        }).then((image) => {
+        }).then(image => {
           console.log(image);
-          var filename = image.path.substring(image.path.lastIndexOf("/") + 1);
+          var filename = image.path.substring(image.path.lastIndexOf('/') + 1);
           // setProfile(response.data.image)
           setProfile([
             {
@@ -718,42 +718,42 @@ export const RegisterScreen = ({ navigation, route }) => {
   const selectFile1 = async () => {
     setImageVisible(false);
     let options = {
-      mediaType: "photo",
+      mediaType: 'photo',
       maxWidth: 300,
       maxHeight: 550,
       quality: 1,
     };
-    launchImageLibrary(options, async (response) => {
-      console.log("Response = ", response);
+    launchImageLibrary(options, async response => {
+      console.log('Response = ', response);
       setLoading(true);
       if (response.didCancel) {
-        alert("User cancelled camera picker");
+        alert('User cancelled camera picker');
         setLoading(false);
         return;
-      } else if (response.errorCode == "camera_unavailable") {
-        alert("Camera not available on device");
+      } else if (response.errorCode == 'camera_unavailable') {
+        alert('Camera not available on device');
         setLoading(false);
         return;
-      } else if (response.errorCode == "permission") {
-        alert("Permission not satisfied");
+      } else if (response.errorCode == 'permission') {
+        alert('Permission not satisfied');
         setLoading(false);
         return;
-      } else if (response.errorCode == "others") {
+      } else if (response.errorCode == 'others') {
         alert(response.errorMessage);
         setLoading(false);
         return;
       }
 
-      console.log("Get ResposneDAAAAA:", response.assets[0]?.fileName);
+      console.log('Get ResposneDAAAAA:', response.assets[0]?.fileName);
       var formdata = new FormData();
-      formdata.append("image", {
+      formdata.append('image', {
         name: response.assets[0]?.fileName,
         uri: response.assets[0]?.uri,
         type: response.assets[0]?.type,
       });
 
       const imagePath = await UploadImage(formdata);
-      console.log("Get ResposneDAAAAA:", imagePath);
+      console.log('Get ResposneDAAAAA:', imagePath);
       images.push({
         uri: imagePath.data.url,
         fileName: imagePath.data.filepath_url,
@@ -762,9 +762,9 @@ export const RegisterScreen = ({ navigation, route }) => {
     });
   };
 
-  const selectedDate = (mode) => {
+  const selectedDate = mode => {
     setTimeVisible(false);
-    console.log("Get Email DI::::", mode);
+    console.log('Get Email DI::::', mode);
     if (mode?.time) {
       timingData[index].time = mode.time;
       timingData[index].start = mode.start;
@@ -778,7 +778,7 @@ export const RegisterScreen = ({ navigation, route }) => {
     try {
       setLoading(true);
       var formdata = new FormData();
-      formdata.append("image", {
+      formdata.append('image', {
         name: profile[0]?.fileName,
         uri: profile[0]?.uri,
         type: profile[0]?.type,
@@ -791,9 +791,9 @@ export const RegisterScreen = ({ navigation, route }) => {
         arrayImage.push(item.fileName);
       });
 
-      let num = Value.replace("-", "");
-      let num2 = num.replace("-", "");
-      console.log("Get Numbers:::", num2);
+      let num = Value.replace('-', '');
+      let num2 = num.replace('-', '');
+      console.log('Get Numbers:::', num2);
 
       const id = encodeURIComponent(route.params.id);
       const restaurant_name = encodeURIComponent(name);
@@ -811,22 +811,22 @@ export const RegisterScreen = ({ navigation, route }) => {
       const requestBody = `id=${id}&restaurant_name=${restaurant_name}&manager_name=${manager_name}&country_code=${country_code}&phone_number=${phone_number}&full_address=${full_address}&city=${City}&state=${State}&lattitude=${lattitude}&longitude=${longitude}&image=${image}&about=${abouts}&images=${images1}`;
 
       const res = await SetupCafeApi(requestBody);
-      console.log("Get Response::", res);
+      console.log('Get Response::', res);
       if (!res.sucecess) {
         setLoading(false);
         alert(res.message);
       } else {
         setLoading(false);
         // alert(res.message)
-        navigation.navigate("RegisterMessage");
+        navigation.navigate('RegisterMessage');
       }
     } catch (err) {
       setLoading(false);
-      console.log("Get Error:::", err);
+      console.log('Get Error:::', err);
     }
   };
 
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
         style={styles.itemView}
@@ -834,37 +834,35 @@ export const RegisterScreen = ({ navigation, route }) => {
       >
         <View
           style={{
-            width: "15%",
-            height: "100%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+            width: '15%',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <View
             style={{
               height: 35,
               width: 35,
               borderRadius: 35,
               backgroundColor:
-                item.time == "Open 24 hours"
-                  ? "rgba(55, 129, 252,0.2)"
-                  : item.time == "Closed"
-                  ? "rgba(255, 85, 85,0.2)"
-                  : "rgba(103, 193, 23,0.2)",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+                item.time == 'Open 24 hours'
+                  ? 'rgba(55, 129, 252,0.2)'
+                  : item.time == 'Closed'
+                  ? 'rgba(255, 85, 85,0.2)'
+                  : 'rgba(103, 193, 23,0.2)',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
             <Image
               style={[
                 styles.bagImage,
                 {
                   tintColor:
-                    item.time == "Open 24 hours"
-                      ? "#3781FC"
-                      : item.time == "Closed"
-                      ? "#FF5555"
-                      : "#67C117",
+                    item.time == 'Open 24 hours'
+                      ? '#3781FC'
+                      : item.time == 'Closed'
+                      ? '#FF5555'
+                      : '#67C117',
                 },
               ]}
               source={calendar}
@@ -875,7 +873,7 @@ export const RegisterScreen = ({ navigation, route }) => {
           <View>
             <Text style={styles.nameText}>{item.name}</Text>
             <Text style={styles.statusText}>
-              {item.time == "custom"
+              {item.time == 'custom'
                 ? `Open at ${item.start} - ${item.end}`
                 : `${item.time}`}
             </Text>
@@ -884,8 +882,7 @@ export const RegisterScreen = ({ navigation, route }) => {
             style={styles.changeButton}
             onPress={() => {
               setTimeVisible(true), setIndex(index);
-            }}
-          >
+            }}>
             <Text style={styles.changeText}>Change</Text>
           </TouchableOpacity>
         </View>
@@ -893,26 +890,26 @@ export const RegisterScreen = ({ navigation, route }) => {
     );
   };
 
-  const renderItem1 = ({ item, index }) => {
+  const renderItem1 = ({item, index}) => {
     return (
-      <View style={{ height: PX(70), width: PX(70) }}>
+      <View style={{height: PX(70), width: PX(70)}}>
         <Image
-          style={{ height: PX(60), width: PX(60), borderRadius: PX(5) }}
-          source={{ uri: item.uri }}
+          style={{height: PX(60), width: PX(60), borderRadius: PX(5)}}
+          source={{uri: item.uri}}
         />
       </View>
     );
   };
 
   const onValidationFirst = () => {
-    if (name == "") {
-      Alert.alert("Registration", "Please Enter Restaurant Name.");
-    } else if (managerName == "") {
-      Alert.alert("Registration", "Please Enter Manager Name.");
-    } else if (Value == "") {
-      Alert.alert("Registration", "Please Enter Mobile Number.");
+    if (name == '') {
+      Alert.alert('Registration', 'Please Enter Restaurant Name.');
+    } else if (managerName == '') {
+      Alert.alert('Registration', 'Please Enter Manager Name.');
+    } else if (Value == '') {
+      Alert.alert('Registration', 'Please Enter Mobile Number.');
     } else if (Value.length != 12) {
-      Alert.alert("Registration", "Please Enter Valid Mobile Number.");
+      Alert.alert('Registration', 'Please Enter Valid Mobile Number.');
     } else {
       setPageIndex(pageIndex + 1);
     }
@@ -920,22 +917,22 @@ export const RegisterScreen = ({ navigation, route }) => {
 
   const onValidationSecond = () => {
     if (profile.length == 0) {
-      Alert.alert("Registration", "Please Select Profile Image.");
-    } else if (about == "") {
-      Alert.alert("Registration", "Please Enter About Description.");
+      Alert.alert('Registration', 'Please Select Profile Image.');
+    } else if (about == '') {
+      Alert.alert('Registration', 'Please Enter About Description.');
     } else {
       setPageIndex(pageIndex + 1);
     }
   };
 
-  const phoneNumberString = async (text) => {
-    let newText = "";
-    let cleaned = ("" + text).replace(/\D/g, "");
+  const phoneNumberString = async text => {
+    let newText = '';
+    let cleaned = ('' + text).replace(/\D/g, '');
     for (var i = 0; i < cleaned.length; i++) {
       if (i == 3) {
-        newText = newText + "-";
+        newText = newText + '-';
       } else if (i == 6) {
-        newText = newText + "-";
+        newText = newText + '-';
       }
       newText = newText + cleaned[i];
     }
@@ -946,32 +943,30 @@ export const RegisterScreen = ({ navigation, route }) => {
     }
   };
 
-  const onclickMap = (item) => {
-    console.log("Get ITems:::");
+  const onclickMap = item => {
+    console.log('Get ITems:::');
     setLong(item.center[0]);
     setLat(item.center[1]);
     setBothAddress([item.center[0], item.center[1]]);
     getFullAddress(item.center[1], item.center[0]);
-    setSearchText("");
+    setSearchText('');
   };
 
-  const renderItem2 = ({ item, index }) => {
+  const renderItem2 = ({item, index}) => {
     return (
       <TouchableOpacity
         style={{
-          width: "95%",
+          width: '95%',
           marginLeft: PX(10),
           height: PX(60),
         }}
-        onPress={() => onclickMap(item)}
-      >
+        onPress={() => onclickMap(item)}>
         <Text
           style={{
             fontSize: PX(12),
-            fontFamily: "Montserrat-Regular",
-            color: "#000",
-          }}
-        >
+            fontFamily: 'Montserrat-Regular',
+            color: '#000',
+          }}>
           {item.place_name}
         </Text>
       </TouchableOpacity>
@@ -983,7 +978,7 @@ export const RegisterScreen = ({ navigation, route }) => {
       <View
         style={{
           height: hasNotch() ? PX(35) : PX(10),
-          backgroundColor: "#000",
+          backgroundColor: '#000',
         }}
       />
       <Loader isLoding={loading} />
@@ -991,21 +986,20 @@ export const RegisterScreen = ({ navigation, route }) => {
         <>
           <MapboxGL.MapView
             style={styles.map}
-            onPress={(res) => {
-              console.log("Get Res", res);
-            }}
-          >
+            onPress={res => {
+              console.log('Get Res', res);
+            }}>
             <MapboxGL.Camera zoomLevel={9} centerCoordinate={[long, lat]} />
             <MapboxGL.PointAnnotation
-              id={"pointAnnotation"}
+              id={'pointAnnotation'}
               coordinate={bothAddress}
               draggable={true}
-              onDragEnd={(e) => {
-                console.log("dragEnd", parseFloat(lat), parseFloat(long));
+              onDragEnd={e => {
+                console.log('dragEnd', parseFloat(lat), parseFloat(long));
                 console.log(
-                  "dragEnd",
+                  'dragEnd',
                   e.geometry.coordinates[0],
-                  e.geometry.coordinates[1]
+                  e.geometry.coordinates[1],
                 );
                 setLong(e.geometry.coordinates[0]);
                 setLat(e.geometry.coordinates[1]);
@@ -1026,16 +1020,15 @@ export const RegisterScreen = ({ navigation, route }) => {
           </MapboxGL.MapView>
           <View
             style={{
-              position: "absolute",
+              position: 'absolute',
               height: PX(60),
-              width: "85%",
+              width: '85%',
               marginTop: PX(50),
-              alignSelf: "center",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+              alignSelf: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
             {/* <TouchableOpacity onPress={()=>navigation.goBack()} 
               style={{
                 height:PX(50),
@@ -1050,28 +1043,27 @@ export const RegisterScreen = ({ navigation, route }) => {
             <View
               style={{
                 height: PX(50),
-                width: "100%",
+                width: '100%',
                 borderRadius: PX(10),
-                backgroundColor: "#fff",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "row",
-              }}
-            >
+                backgroundColor: '#fff',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
               <Image
-                style={{ height: PX(20), width: PX(20), resizeMode: "contain" }}
+                style={{height: PX(20), width: PX(20), resizeMode: 'contain'}}
                 source={search}
               />
               <TextInput
                 value={searchText}
-                onChangeText={(text) => onSearch(text)}
+                onChangeText={text => onSearch(text)}
                 placeholder="search area street name"
-                placeholderTextColor={"#C4C4C4"}
+                placeholderTextColor={'#C4C4C4'}
                 style={{
                   marginLeft: PX(10),
-                  width: "70%",
+                  width: '70%',
                   fontSize: PX(16),
-                  color: "#C4C4C4",
+                  color: '#C4C4C4',
                 }}
               />
               {/* <TouchableOpacity onPress={()=>onSearch(searchText)}> */}
@@ -1079,24 +1071,23 @@ export const RegisterScreen = ({ navigation, route }) => {
                 style={{
                   height: PX(20),
                   width: PX(20),
-                  resizeMode: "contain",
+                  resizeMode: 'contain',
                   marginLeft: PX(10),
                 }}
                 source={addressMap}
               />
               {/* </TouchableOpacity> */}
-              {searchText != "" && (
+              {searchText != '' && (
                 <View
                   style={{
                     height: PX(300),
-                    width: "100%",
-                    backgroundColor: "#fff",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    position: "absolute",
+                    width: '100%',
+                    backgroundColor: '#fff',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'absolute',
                     top: PX(45),
-                  }}
-                >
+                  }}>
                   <FlatList
                     data={AllData}
                     renderItem={renderItem2}
@@ -1110,26 +1101,23 @@ export const RegisterScreen = ({ navigation, route }) => {
       ) : (
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: PX(30) }}
-        >
-          <View style={{ paddingHorizontal: PX(20), alignItems: "center" }}>
+          contentContainerStyle={{paddingBottom: PX(30)}}>
+          <View style={{paddingHorizontal: PX(20), alignItems: 'center'}}>
             <View
               style={[
                 styles.headerView,
-                { justifyContent: pageIndex == 0 ? "center" : "space-between" },
-              ]}
-            >
+                {justifyContent: pageIndex == 0 ? 'center' : 'space-between'},
+              ]}>
               {pageIndex != 0 && (
                 <TouchableOpacity
                   onPress={() => {
                     setPageIndex(pageIndex - 1);
-                  }}
-                >
+                  }}>
                   <Image
                     style={{
                       height: PX(20),
                       width: PX(20),
-                      resizeMode: "contain",
+                      resizeMode: 'contain',
                     }}
                     source={backArrow}
                   />
@@ -1138,11 +1126,7 @@ export const RegisterScreen = ({ navigation, route }) => {
               <Text style={styles.headerText}>Setup Cafe</Text>
               {pageIndex != 0 && (
                 <Image
-                  style={{
-                    height: PX(20),
-                    width: PX(20),
-                    resizeMode: "contain",
-                  }}
+                  style={{height: PX(20), width: PX(20), resizeMode: 'contain'}}
                 />
               )}
             </View>
@@ -1171,16 +1155,11 @@ export const RegisterScreen = ({ navigation, route }) => {
                 onPress={() => {
                   setImageVisible(true);
                 }}
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+                style={{width: '100%',justifyContent:'center',alignItems:'center'}}>
                 {profile.length > 0 ? (
                   <Image
                     style={styles.mainImage1}
-                    source={{ uri: profile[0].uri }}
+                    source={{uri: profile[0].uri}}
                   />
                 ) : (
                   <Image
@@ -1202,12 +1181,12 @@ export const RegisterScreen = ({ navigation, route }) => {
                 <TextInput
                   ref={ref_ResName}
                   value={name}
-                  onChangeText={(text) => {
+                  onChangeText={text => {
                     setName(text);
                   }}
                   placeholder="Book Cafe"
                   style={styles.textInputStyle}
-                  returnKeyType={"next"}
+                  returnKeyType={'next'}
                   onSubmitEditing={() => ref_managerName.current.focus()}
                 />
 
@@ -1215,19 +1194,19 @@ export const RegisterScreen = ({ navigation, route }) => {
                 <TextInput
                   ref={ref_managerName}
                   value={managerName}
-                  onChangeText={(text) => {
+                  onChangeText={text => {
                     setManagerName(text);
                   }}
                   placeholder="Manager Name"
                   style={styles.textInputStyle}
-                  returnKeyType={"next"}
+                  returnKeyType={'next'}
                   onSubmitEditing={() => ref_mobileNumber.current.focus()}
                 />
 
                 <Text style={styles.textInputTitle1}>Phone Number</Text>
 
                 <View style={styles.textInputView}>
-                  <View style={[styles.imageView1, { flexDirection: "row" }]}>
+                  <View style={[styles.imageView1, {flexDirection: 'row'}]}>
                     {/* <Image style={styles.Images} source={pngImage.Email}/> */}
                     {/* <CountryPicker
                       withFilter
@@ -1240,18 +1219,17 @@ export const RegisterScreen = ({ navigation, route }) => {
                       style={{
                         height: PX(25),
                         width: PX(25),
-                        resizeMode: "contain",
+                        resizeMode: 'contain',
                       }}
-                      source={require("../../Assets/flag.png")}
+                      source={require('../../Assets/flag.png')}
                     />
                     <Text
                       style={{
                         fontFamily: Fonts.FONTS.MontserratRegular,
                         fontSize: PX(16),
                         marginLeft: PX(5),
-                        color: "#000",
-                      }}
-                    >
+                        color: '#000',
+                      }}>
                       +1
                     </Text>
                     <Image style={styles.Images} source={downArrow} />
@@ -1259,10 +1237,10 @@ export const RegisterScreen = ({ navigation, route }) => {
                   <TextInput
                     ref={ref_mobileNumber}
                     value={Value}
-                    onChangeText={(text) => phoneNumberString(text)}
+                    onChangeText={text => phoneNumberString(text)}
                     style={styles.TextInputStyle1}
-                    placeholder={"Mobile Number"}
-                    keyboardType={"decimal-pad"}
+                    placeholder={'Mobile Number'}
+                    keyboardType={'decimal-pad'}
                     maxLength={14}
                     //                     onBlur={()=>{
                     //                       if(Value.length!=12&&Value.length!=0){
@@ -1280,8 +1258,7 @@ export const RegisterScreen = ({ navigation, route }) => {
                     style={styles.btn}
                     onPress={() => {
                       onValidationFirst();
-                    }}
-                  >
+                    }}>
                     <Text style={styles.btnText}>Continue</Text>
                   </TouchableOpacity>
                 </View>
@@ -1294,11 +1271,10 @@ export const RegisterScreen = ({ navigation, route }) => {
 
                     <View
                       style={{
-                        flexDirection: "row",
-                        justifyContent: "flex-start",
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
                         marginTop: PX(10),
-                      }}
-                    >
+                      }}>
                       <ScrollView horizontal>
                         <FlatList
                           data={images}
@@ -1311,18 +1287,17 @@ export const RegisterScreen = ({ navigation, route }) => {
                           style={{
                             height: PX(50),
                             width: PX(60),
-                            alignItems: "center",
-                            justifyContent: "center",
+                            alignItems: 'center',
+                            justifyContent: 'center',
                           }}
-                          onPress={() => selectFile1()}
-                        >
+                          onPress={() => selectFile1()}>
                           <Image
                             style={{
                               height: PX(40),
                               width: PX(40),
-                              resizeMode: "contain",
+                              resizeMode: 'contain',
                             }}
-                            source={require("../../Assets/add.png")}
+                            source={require('../../Assets/add.png')}
                           />
                         </TouchableOpacity>
                       </ScrollView>
@@ -1361,11 +1336,10 @@ export const RegisterScreen = ({ navigation, route }) => {
                     </View> */}
 
                     <Text
-                      style={[styles.locationText, { marginTop: PX(20) }]}
+                      style={[styles.locationText, {marginTop: PX(20)}]}
                       onPress={() => {
                         setMapVisible(true);
-                      }}
-                    >
+                      }}>
                       Get Locations
                     </Text>
 
@@ -1373,7 +1347,7 @@ export const RegisterScreen = ({ navigation, route }) => {
                     <TextInput
                       ref={ref_fullAddress}
                       value={address}
-                      onChangeText={(text) => {
+                      onChangeText={text => {
                         setAddress(text);
                       }}
                       placeholder="Book Cafe"
@@ -1384,12 +1358,11 @@ export const RegisterScreen = ({ navigation, route }) => {
 
                     <View
                       style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        width: "100%",
-                      }}
-                    >
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                      }}>
                       {/* <View style={{width: '48%'}}>
                         <Text style={styles.textInputTitle1}>State</Text> */}
                       {/* <TextInput
@@ -1407,35 +1380,34 @@ export const RegisterScreen = ({ navigation, route }) => {
                         
                        
                       </View> */}
-                      <View style={{ width: "48%" }}>
+                      <View style={{width: '48%'}}>
                         <Text style={styles.textInputTitle1}>State</Text>
 
                         <TouchableOpacity
                           style={{
-                            width: "100%",
-                            borderBottomColor: "#C4C4C4",
+                            width: '100%',
+                            borderBottomColor: '#C4C4C4',
                             borderBottomWidth: 1,
                             paddingTop: PX(22),
                             paddingBottom: PX(10),
                           }}
                           onPress={() => {
                             setStateModal(!stateModal);
-                          }}
-                        >
+                          }}>
                           <Text style={styles.textState}>{state}</Text>
                         </TouchableOpacity>
                       </View>
-                      <View style={{ width: "48%" }}>
+                      <View style={{width: '48%'}}>
                         <Text style={styles.textInputTitle1}>City</Text>
                         <TextInput
                           ref={ref_city}
                           value={city}
-                          onChangeText={(text) => {
+                          onChangeText={text => {
                             setCity(text);
                           }}
                           placeholder="Enter City"
                           style={styles.textInputStyle}
-                          returnKeyType={"next"}
+                          returnKeyType={'next'}
                           onSubmitEditing={() => ref_des.current.focus()}
                         />
                       </View>
@@ -1447,7 +1419,7 @@ export const RegisterScreen = ({ navigation, route }) => {
                     <TextInput
                       ref={ref_des}
                       value={about}
-                      onChangeText={(text) => {
+                      onChangeText={text => {
                         setAbout(text);
                       }}
                       placeholder="Enter Description"
@@ -1460,17 +1432,16 @@ export const RegisterScreen = ({ navigation, route }) => {
                     {pageIndex == 2 ? (
                       <View>
                         <Text style={styles.textStyles}>
-                          {"Set the opening and closing hours\n of your cafe"}
+                          {'Set the opening and closing hours\n of your cafe'}
                         </Text>
                         <Text
                           style={styles.skipText}
-                          onPress={() => SkipTiming()}
-                        >
-                          {"Skip for now"}
+                          onPress={() => SkipTiming()}>
+                          {'Skip for now'}
                         </Text>
                       </View>
                     ) : (
-                      <ScrollView style={{ width: "100%", paddingTop: PX(20) }}>
+                      <ScrollView style={{width: '100%', paddingTop: PX(20)}}>
                         <FlatList
                           data={timingData}
                           renderItem={renderItem}
@@ -1480,9 +1451,8 @@ export const RegisterScreen = ({ navigation, route }) => {
                         />
                         <Text
                           style={styles.skipText1}
-                          onPress={() => SkipTiming()}
-                        >
-                          {"Skip for now"}
+                          onPress={() => SkipTiming()}>
+                          {'Skip for now'}
                         </Text>
                         {/* <Text style={styles.skipText1}>{'Skip for now'}</Text> */}
                       </ScrollView>
@@ -1504,8 +1474,7 @@ export const RegisterScreen = ({ navigation, route }) => {
                       : pageIndex == 1
                       ? onValidationSecond()
                       : setPageIndex(pageIndex + 1);
-                  }}
-                >
+                  }}>
                   <Text style={styles.btnText}>Continue</Text>
                 </TouchableOpacity>
               ) : null}
@@ -1531,24 +1500,22 @@ export const RegisterScreen = ({ navigation, route }) => {
             setMapVisible(false);
           }}
           style={{
-            position: "absolute",
+            position: 'absolute',
             bottom: PX(130),
             right: PX(30),
             width: PX(100),
             height: PX(50),
-            backgroundColor: "#F55800",
+            backgroundColor: '#F55800',
             borderRadius: PX(5),
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <Text
             style={{
               fontFamily: Fonts.FONTS.MontserratMedium,
               fontSize: PX(16),
-              color: "#fff",
-            }}
-          >
+              color: '#fff',
+            }}>
             Confirm
           </Text>
         </TouchableOpacity>
@@ -1560,7 +1527,7 @@ export const RegisterScreen = ({ navigation, route }) => {
           onRequestClose={() => {
             setTimeVisible(false);
           }}
-          mode={(mode) => selectedDate(mode)}
+          mode={mode => selectedDate(mode)}
         />
       )}
 
@@ -1570,8 +1537,7 @@ export const RegisterScreen = ({ navigation, route }) => {
         visible={stateModal}
         onRequestClose={() => {
           setStateModal(false);
-        }}
-      >
+        }}>
         <View style={styles.centeredView1}>
           {/* <TouchableOpacity
           style={{
@@ -1582,62 +1548,58 @@ export const RegisterScreen = ({ navigation, route }) => {
           onPress={()=>{setCommentModal(false)}}></TouchableOpacity> */}
           <View
             style={{
-              height: "100%",
-              width: "100%",
-              backgroundColor: "#fff",
+              height: '100%',
+              width: '100%',
+              backgroundColor: '#fff',
               marginTop: hasNotch() ? PX(35) : 0,
               // alignItems:'center',
-            }}
-          >
+            }}>
             <View
               style={{
-                width: "94%",
-                alignSelf: "center",
+                width: '94%',
+                alignSelf: 'center',
                 marginVertical: PX(10),
-                alignItems: "flex-end",
-              }}
-            >
+                alignItems: 'flex-end',
+              }}>
               <TouchableOpacity
                 onPress={() => {
                   setStateModal(false);
-                }}
-              >
+                }}>
                 <Image
                   style={{
                     height: PX(35),
                     width: PX(40),
-                    resizeMode: "contain",
-                    tintColor: "#000",
+                    resizeMode: 'contain',
+                    tintColor: '#000',
                   }}
-                  source={require("../../Assets/cross.png")}
+                  source={require('../../Assets/cross.png')}
                 />
               </TouchableOpacity>
             </View>
 
             <FlatList
               data={data}
-              renderItem={({ item, index }) => {
+              renderItem={({item, index}) => {
                 return (
                   <TouchableOpacity
                     style={{
                       height: PX(60),
-                      borderBottomColor: "#828282",
+                      borderBottomColor: '#828282',
                       borderBottomWidth: 1,
-                      width: "100%",
+                      width: '100%',
                       paddingHorizontal: PX(30),
-                      justifyContent: "center",
+                      justifyContent: 'center',
                     }}
                     onPress={() => {
                       setStateModal(false), setState(item.value);
-                    }}
-                  >
+                    }}>
                     <Text style={styles.stateText1}>{item.label}</Text>
                   </TouchableOpacity>
                 );
               }}
               keyExtractor={(item, index) => index.toString()}
               showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ paddingBottom: PX(100) }}
+              contentContainerStyle={{paddingBottom: PX(100)}}
             />
           </View>
         </View>
